@@ -1,1415 +1,532 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>The Disposable Depot – House of All Disposable Items</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="The Disposable Depot – House of all disposable plates, glasses, bowls, spoons, foils, napkins, and more in Jalandhar, Punjab."
-  />
-  <style>
-    :root {
-      --bg: #fff7ed;
-      --accent: #f97316;
-      --accent-dark: #c2410c;
-      --accent-soft: #ffedd5;
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --card-bg: #ffffff;
-      --border-soft: #fed7aa;
-      --radius-xl: 1.25rem;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.14);
-      --green: #16a34a;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background: radial-gradient(circle at top, #ffedd5 0, #fff7ed 40%, #ffffff 100%);
-      color: var(--text-main);
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .page {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 1.5rem 1.25rem 3rem;
-    }
-
-    /* Top bar */
-
-    .top-bar {
-      position: sticky;
-      top: 1rem;
-      z-index: 20;
-      padding: 0.8rem 1.1rem;
-      border-radius: 1.4rem;
-      border: 1px solid var(--border-soft);
-      background: linear-gradient(90deg, #f97316, #fb923c);
-      box-shadow: 0 18px 45px rgba(248, 113, 22, 0.4);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .brand-text-title {
-      font-weight: 800;
-      font-size: 1.05rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: #111827;
-    }
-
-    .brand-text-sub {
-      font-size: 0.8rem;
-      color: #1f2933;
-      opacity: 0.9;
-    }
-
-    .top-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.55rem 0.95rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      background: rgba(255, 255, 255, 0.92);
-      font-size: 0.82rem;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: all 0.16s ease-out;
-      color: #111827;
-    }
-
-    .pill span.icon {
-      font-size: 1rem;
-    }
-
-    .pill.primary {
-      background: var(--green);
-      color: #ecfdf5;
-      border-color: rgba(22, 101, 52, 0.3);
-      font-weight: 600;
-      box-shadow: 0 10px 30px rgba(22, 163, 74, 0.6);
-    }
-
-    .pill.primary:hover {
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 14px 40px rgba(21, 128, 61, 0.75);
-    }
-
-    .pill:hover:not(.primary) {
-      transform: translateY(-1px);
-      background: #ffffff;
-    }
-
-    /* HERO STRIP (PARALLAX) */
-
-    .hero-strip {
-      margin-top: 2rem;
-      min-height: 72vh;
-      border-radius: 1.5rem;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.4);
-      background-image: url("https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000062278.jpg");
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @media (max-width: 768px) {
-      .hero-strip {
-        min-height: 60vh;
-        background-attachment: scroll; /* mobile par safer */
-      }
-    }
-
-    .hero-overlay {
-      background: radial-gradient(circle at top, rgba(0,0,0,0.7), rgba(0,0,0,0.85));
-      backdrop-filter: blur(6px);
-      padding: 2.4rem 2rem;
-      border-radius: 1.6rem;
-      max-width: 640px;
-      text-align: center;
-      color: #f9fafb;
-      border: 1px solid rgba(248, 250, 252, 0.18);
-      box-shadow: 0 22px 60px rgba(0,0,0,0.55);
-    }
-
-    .hero-heading {
-      font-size: clamp(2.1rem, 4vw, 2.7rem);
-      font-weight: 800;
-      letter-spacing: 0.02em;
-    }
-
-    .hero-heading span.highlight {
-      color: #fbbf24;
-    }
-
-    .hero-tag {
-      margin-top: 0.9rem;
-      font-size: 0.96rem;
-      color: #e5e7eb;
-    }
-
-    .hero-tag strong {
-      color: #fff;
-    }
-
-    .hero-badges {
-      margin-top: 1.3rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-
-    .badge {
-      font-size: 0.75rem;
-      padding: 0.3rem 0.7rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(249, 250, 251, 0.25);
-      color: #e5e7eb;
-    }
-
-    .badge.orange {
-      background: rgba(251, 146, 60, 0.2);
-      border-color: #fed7aa;
-      color: #fed7aa;
-      font-weight: 500;
-    }
-
-    .hero-cta {
-      margin-top: 1.7rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.9rem;
-      align-items: center;
-    }
-
-    .button {
-      border-radius: 999px;
-      padding: 0.9rem 1.7rem;
-      border: 1px solid transparent;
-      font-size: 0.9rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      cursor: pointer;
-      transition: all 0.16s ease-out;
-    }
-
-    .button-primary {
-      background: linear-gradient(120deg, var(--green), #22c55e);
-      color: #ecfdf5;
-      border-color: rgba(22, 163, 74, 0.8);
-      box-shadow: 0 14px 42px rgba(22, 163, 74, 0.7);
-    }
-
-    .button-primary:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 18px 60px rgba(21, 128, 61, 0.9);
-    }
-
-    .button-ghost {
-      background: transparent;
-      border-color: rgba(248, 250, 252, 0.7);
-      color: #e5e7eb;
-    }
-
-    .button-ghost:hover {
-      border-color: #facc15;
-      background: rgba(15, 23, 42, 0.75);
-      transform: translateY(-1px);
-    }
-
-    .hero-phones {
-      margin-top: 1.1rem;
-      font-size: 0.88rem;
-      color: #e5e7eb;
-    }
-
-    /* Sections */
-
-    .section {
-      margin-top: 3rem;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 1rem;
-      margin-bottom: 1.6rem;
-    }
-
-    .section-title {
-      font-size: 1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent-dark);
-    }
-
-    .section-subtitle {
-      font-size: 1.7rem;
-      font-weight: 700;
-    }
-
-    .section-subtitle span {
-      color: var(--accent-dark);
-    }
-
-    .section-note {
-      max-width: 280px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      text-align: right;
-    }
-
-    @media (max-width: 640px) {
-      .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .section-note {
-        text-align: left;
-      }
-    }
-
-    /* Catalogue */
-
-    .catalogue-grid {
-      display: grid;
-      gap: 1.5rem;
-    }
-
-    @media (min-width: 768px) {
-      .catalogue-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    .catalogue-item {
-      background: #fffaf4;
-      border-radius: var(--radius-xl);
-      padding: 1.25rem;
-      border: 1px solid rgba(255, 153, 0, 0.18);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      cursor: pointer;
-      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-    }
-
-    .catalogue-item:hover {
-      transform: translateY(-6px) scale(1.01);
-      border-color: var(--accent);
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.12);
-    }
-
-    .catalogue-item h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.15rem;
-    }
-
-    .catalogue-item p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .catalogue-media-multi {
-      margin-top: 0.4rem;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.4rem;
-    }
-
-    .catalogue-media-multi img {
-      width: 100%;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 0.75rem;
-      background: #f5f5f5;
-      border: 1px solid rgba(254, 215, 170, 0.8);
-      pointer-events: none;
-    }
-
-    /* Order form */
-
-    .order-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-
-    @media (max-width: 800px) {
-      .order-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .order-card {
-      border-radius: 1.6rem;
-      background: radial-gradient(circle at top left, rgba(249, 250, 251, 0.96), rgba(255, 247, 237, 0.98));
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(248, 171, 104, 0.6);
-      padding: 1.5rem 1.6rem;
-      box-shadow: 0 28px 80px rgba(248, 113, 22, 0.4);
-    }
-
-    .order-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-    }
-
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-
-    .field-label {
-      font-size: 0.85rem;
-      color: var(--text-main);
-      font-weight: 500;
-    }
-
-    .field-label span {
-      color: #dc2626;
-    }
-
-    .field-input,
-    .field-select,
-    .field-textarea {
-      border-radius: 0.9rem;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      padding: 0.6rem 0.85rem;
-      font-size: 0.9rem;
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.12s ease-out, box-shadow 0.12s ease-out, transform 0.12s ease-out;
-      background: rgba(255, 255, 255, 0.95);
-    }
-
-    .field-textarea {
-      min-height: 70px;
-      resize: vertical;
-    }
-
-    .field-input:focus,
-    .field-select:focus,
-    .field-textarea:focus {
-      border-color: var(--accent-dark);
-      box-shadow: 0 0 0 1px rgba(248, 113, 22, 0.7);
-      transform: translateY(-1px);
-    }
-
-    .order-help {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .order-button {
-      margin-top: 0.5rem;
-      align-self: flex-start;
-    }
-
-    .order-info-card {
-      border-radius: 1.4rem;
-      background: var(--card-bg);
-      border: 1px dashed var(--border-soft);
-      padding: 1.2rem 1.3rem;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
-    }
-
-    .order-info-list {
-      margin-top: 0.6rem;
-      padding-left: 1.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .error-text {
-      color: #b91c1c;
-      font-size: 0.8rem;
-      display: none;
-    }
-
-    .error-text.is-visible {
-      display: block;
-    }
-
-    /* Info section */
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: 1.4rem;
-      margin-top: 1.4rem;
-    }
-
-    @media (max-width: 800px) {
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .info-card {
-      border-radius: 1.4rem;
-      background: var(--card-bg);
-      border: 1px solid var(--border-soft);
-      padding: 1.2rem 1.3rem;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-    }
-
-    .info-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-      margin-bottom: 0.4rem;
-    }
-
-    .info-main {
-      font-size: 0.95rem;
-    }
-
-    .info-main strong {
-      display: block;
-      font-size: 1.1rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .info-inline {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 0.5rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .map-link {
-      font-size: 0.85rem;
-      margin-top: 0.6rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      color: var(--accent-dark);
-      font-weight: 500;
-    }
-
-    .map-link span.icon {
-      font-size: 1rem;
-    }
-
-    .social-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      margin-top: 0.7rem;
-      font-size: 0.83rem;
-    }
-
-    .social-links a {
-      padding: 0.35rem 0.9rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: #ffffff;
-      color: #111827;
-      transition: all 0.16s ease-out;
-    }
-
-    .social-links a:hover {
-      border-color: var(--accent-dark);
-      background: #fff7ed;
-      transform: translateY(-1px);
-    }
-
-    /* Footer */
-
-    footer {
-      margin-top: 3rem;
-      padding-top: 1.4rem;
-      border-top: 1px dashed rgba(148, 163, 184, 0.6);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.6rem;
-    }
-
-    .footer-right {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* Floating Top button */
-
-    #backToTop {
-      position: fixed;
-      bottom: 16px;
-      right: 16px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: none;
-      background: #f97316;
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 0.85rem;
-      cursor: pointer;
-      display: none;
-      z-index: 1000;
-      box-shadow: 0 14px 40px rgba(248, 113, 22, 0.7);
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, background 0.15s ease-out;
-    }
-
-    #backToTop:hover {
-      background: #ea580c;
-      transform: translateY(-2px);
-      box-shadow: 0 18px 55px rgba(194, 65, 12, 0.9);
-    }
-
-    @media (max-width: 480px) {
-      #backToTop {
-        bottom: 12px;
-        right: 12px;
-        padding: 8px 14px;
-        font-size: 0.8rem;
-      }
-    }
-
-    /* Lightbox / Slider */
-
-    .lightbox-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.85);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 50;
-    }
-
-    .lightbox-backdrop.is-open {
-      display: flex;
-    }
-
-    .lightbox {
-      max-width: min(900px, 96vw);
-      max-height: 90vh;
-      background: #020617;
-      border-radius: 1.25rem;
-      padding: 1rem;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      color: #e5e7eb;
-      position: relative;
-    }
-
-    .lightbox-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .lightbox-title {
-      font-weight: 600;
-    }
-
-    .lightbox-close {
-      border: none;
-      background: transparent;
-      color: #e5e7eb;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-
-    .lightbox-image-wrap {
-      position: relative;
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      border-radius: 1rem;
-      background: #020617;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-    }
-
-    .lightbox-image-wrap img {
-      max-width: 100%;
-      max-height: 72vh;
-      object-fit: contain;
-      display: block;
-    }
-
-    .lightbox-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      padding: 0 0.5rem;
-      pointer-events: none;
-    }
-
-    .lightbox-btn {
-      pointer-events: all;
-      border: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.8);
-      color: #e5e7eb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 1.1rem;
-      transition: background 0.15s ease-out, transform 0.15s ease-out;
-    }
-
-    .lightbox-btn:hover {
-      background: rgba(30, 64, 175, 0.9);
-      transform: translateY(-1px);
-    }
-
-    .lightbox-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.78rem;
-      color: #9ca3af;
-    }
-
-    .lightbox-counter {
-      font-weight: 500;
-    }
-
-    @media (max-width: 640px) {
-      .top-bar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .lightbox {
-        padding: 0.75rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>The Disposable Depot – Catalogue</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;background:#fff7ed;color:#111}
+a{text-decoration:none}
+
+/* HEADER */
+header{
+position:sticky;top:0;z-index:999;
+background:linear-gradient(90deg,#fdba74,#f97316);
+padding:14px 20px;
+display:flex;justify-content:space-between;align-items:center;
+box-shadow:0 8px 24px rgba(0,0,0,.2)
+}
+.brand{font-weight:900;letter-spacing:.1em;font-size:14px}
+.actions a{
+background:#fff;padding:8px 14px;border-radius:30px;margin-left:8px;
+font-size:13px;font-weight:700;color:#c2410c
+}
+
+/* HERO (light glass effect) */
+.hero{
+min-height:70vh;
+background:
+linear-gradient(rgba(248,250,252,.4),rgba(248,250,252,.7)),
+url("https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&w=1400&q=80")
+center/cover fixed;
+display:flex;align-items:center;justify-content:center;
+border-radius:0 0 40px 40px
+}
+.hero-box{
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(10px);
+border-radius:30px;
+padding:32px;
+max-width:760px;
+box-shadow:0 20px 60px rgba(0,0,0,.25);
+text-align:center
+}
+.hero-box h1{font-size:32px;margin-bottom:10px}
+.hero-box span{color:#c2410c}
+.hero-box p{margin:4px 0}
+.hero-btn{
+margin-top:16px;display:inline-block;
+background:#16a34a;color:#fff;border-radius:40px;
+padding:12px 22px;font-weight:800
+}
+
+/* SECTION WRAPPER */
+.section{padding:60px 16px;max-width:1200px;margin:auto}
+.section h2{text-align:center;font-size:30px;margin-bottom:32px}
+
+/* CATALOGUE GRID */
+.catalogue{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px
+}
+.card{
+background:#fff;border-radius:26px;padding:14px;
+box-shadow:0 12px 36px rgba(0,0,0,.16);
+cursor:pointer;transition:.25s
+}
+.card:hover{transform:translateY(-6px)}
+.card h3{margin:10px 0 6px;font-size:17px}
+.card p{margin:0;font-size:13px;color:#4b5563}
+.card-thumb{
+display:flex;gap:6px;margin-top:8px
+}
+.card-thumb img{
+flex:1 1 0;width:100%;height:80px;object-fit:cover;border-radius:12px
+}
+.tag{
+display:inline-block;margin-bottom:4px;
+font-size:11px;font-weight:800;border-radius:999px;
+padding:3px 10px;background:#16a34a;color:#fff
+}
+.water-card{
+border:2px solid #16a34a;
+background:linear-gradient(135deg,#ecfdf5,#ffffff)
+}
+
+/* ORDER FORM */
+.form-box{
+background:#fff;padding:30px;border-radius:26px;
+box-shadow:0 18px 54px rgba(0,0,0,.22)
+}
+input,select,textarea{
+width:100%;padding:12px;border-radius:14px;border:1px solid #d4d4d8;margin-bottom:12px;
+font-size:14px
+}
+button{
+cursor:pointer
+}
+.order-btn{
+background:#16a34a;color:#fff;border:none;
+padding:14px 22px;border-radius:40px;font-weight:800;font-size:14px
+}
+
+/* PAYMENT PLACEHOLDER */
+.payment-box{
+margin-top:30px;padding:22px;
+border-radius:22px;
+background:linear-gradient(135deg,#fff,#ffedd5);
+border:2px dashed #fb923c;text-align:center;font-size:14px
+}
+.payment-box img{max-width:150px;margin-top:8px}
+
+/* LIGHTBOX SLIDER */
+#lightbox{
+position:fixed;inset:0;display:none;
+background:rgba(0,0,0,.9);
+align-items:center;justify-content:center;
+z-index:1000
+}
+#lightImg{
+max-width:90vw;max-height:85vh;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.7)
+}
+.nav-btn{
+position:absolute;top:50%;transform:translateY(-50%);
+background:#fff;border:none;border-radius:50%;
+padding:10px 14px;font-size:18px
+}
+#prev{left:18px}
+#next{right:18px}
+#closeLight{
+top:18px;right:18px;left:auto;transform:none
+}
+
+/* FLOATING BUTTONS */
+#waterQuickBtn{
+position:fixed;right:16px;bottom:88px;
+background:#16a34a;color:#fff;
+width:50px;height:50px;border-radius:50%;
+display:none;align-items:center;justify-content:center;
+box-shadow:0 16px 48px rgba(0,0,0,.5);
+font-size:22px;font-weight:900;z-index:900;border:none
+}
+#backTop{
+position:fixed;right:16px;bottom:20px;
+padding:9px 18px;border-radius:40px;border:none;
+background:#f97316;color:#fff;font-weight:800;font-size:13px;
+display:none;z-index:900
+}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+.hero-box{padding:22px}
+.hero-box h1{font-size:24px}
+}
+</style>
 </head>
-<body id="top">
-  <div class="page">
-    <!-- HEADER -->
-    <header class="top-bar">
-      <div class="brand">
-        <div class="brand-text-title">The Disposable Depot</div>
-        <div class="brand-text-sub">House of all disposable items</div>
-      </div>
-      <div class="top-actions">
-        <a href="tel:+919814812623" class="pill primary">
-          <span class="icon">📞</span>
-          <span>Call Now</span>
-        </a>
-        <a href="#order" class="pill">
-          <span class="icon">🧾</span>
-          <span>WhatsApp Order</span>
-        </a>
-        <a href="#visit" class="pill">
-          <span class="icon">📍</span>
-          <span>Visit Store</span>
-        </a>
-      </div>
-    </header>
+<body>
 
-    <!-- HERO STRIP -->
-    <section class="hero-strip">
-      <div class="hero-overlay">
-        <h1 class="hero-heading">
-          One stop for all your <span class="highlight">disposable essentials</span>.
-        </h1>
-        <p class="hero-tag">
-          From <strong>plates, cups & bowls</strong> to
-          <strong>foils, napkins & spoons</strong> – complete party & catering supplies in Jalandhar.
-        </p>
-
-        <div class="hero-badges">
-          <span class="badge orange">Retail & Wholesale</span>
-          <span class="badge">Food-grade · Hygienic · Ready stock</span>
-          <span class="badge">Jalandhar · Punjab</span>
-        </div>
-
-        <div class="hero-cta">
-          <a href="#order" class="button button-primary">
-            <span>🟢 Order on WhatsApp</span>
-          </a>
-          <a href="https://wa.me/919814812623" class="button button-ghost">
-            <span>💬 Quick Chat</span>
-          </a>
-        </div>
-
-        <div class="hero-phones">
-          <strong>Phone:</strong> 98148 12623 · 98150 12623
-        </div>
-      </div>
-    </section>
-
-    <!-- CATALOGUE -->
-    <section class="section" id="catalogue">
-      <div class="section-header">
-        <div>
-          <div class="section-title">Our Catalogue</div>
-          <div class="section-subtitle">
-            Click any group to see <span>full photo slider</span>
-          </div>
-        </div>
-        <p class="section-note">
-          Tap / click on a card to open a full-screen gallery for that category. Use arrows or swipe to browse.
-        </p>
-      </div>
-
-      <div class="catalogue-grid">
-        <!-- cards with data-group keys -->
-        <article class="catalogue-item" data-group="plates">
-          <div>
-            <h3>Disposable Plates</h3>
-            <p>3-compartment & round plates for parties, langar & catering – heavy-duty quality.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061765.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061805.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061941.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061960.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000062692.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000079750.jpg" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="coffee">
-          <div>
-            <h3>Disposable Coffee Glass</h3>
-            <p>Plain, ripple, coloured & printed paper cups for tea, coffee & cold drinks.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061745-1.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061754.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061751.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061768.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000079749.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061896.jpg" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="waterGlass">
-          <div>
-            <h3>Packaged Water Glass</h3>
-            <p>Branded sealed water glasses – ideal for events, offices & travel.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/drinking-water-glass-3038849766770950486076.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061753.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061763.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061901.jpg" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="pingPong">
-          <div>
-            <h3>Ping Pong / Party Glass</h3>
-            <p>Strong plastic party glasses for games and soft drinks.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061752.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/pngwing.com_.png" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="waterBottle">
-          <div>
-            <h3>Packaged Water Bottles</h3>
-            <p>Different brands & sizes – for functions, offices & travel.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061959-1.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061764.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/pngwing.com-3.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061750.png" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="softDrinks">
-          <div>
-            <h3>Soft Drinks</h3>
-            <p>Major soft drink brands – perfect for party coolers & gatherings.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/pngwing.com-1.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061756.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061802.png" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="roundPlates">
-          <div>
-            <h3>Disposable Round Plate</h3>
-            <p>Round plates for snacks, meals & thali – strong & reliable.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061803.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061804.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061934.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061940.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061937.jpg" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="glassWithLid">
-          <div>
-            <h3>Disposable Glass with Lid</h3>
-            <p>Transparent PET glasses for shakes, lassi & cold coffee.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061944.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061806.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061807-1.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061896.jpg" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="plasticBowl">
-          <div>
-            <h3>Disposable Plastic Bowl</h3>
-            <p>Soups, desserts & gravies – different bowl sizes available.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061809.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061808.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061899.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061926.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061923.jpg" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="paperPlates">
-          <div>
-            <h3>Paper Plates</h3>
-            <p>Silver laminated paper plates – ideal for snacks & street food.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061932.jpg?w=848" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061776.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061939.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/81kzwt5nefl-removebg-preview.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061938.jpg" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="laminatedBowls">
-          <div>
-            <h3>Laminated Paper Bowls</h3>
-            <p>Perfect for kadhi, chole, halwa & desserts – food-safe & sturdy.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061800.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061924.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061925.jpg" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="foils">
-          <div>
-            <h3>Cling & Aluminium Foils</h3>
-            <p>Cling film & aluminium foil rolls for wrapping and storage.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061919.png" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061917.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061916.jpg" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="napkins">
-          <div>
-            <h3>Paper Napkins</h3>
-            <p>Plain & branded tissue napkins for hotels, cafés & events.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061920.jpg?w=400" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061922.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061921-1.jpg" alt="" />
-          </div>
-        </article>
-
-        <article class="catalogue-item" data-group="spoons">
-          <div>
-            <h3>Disposable Plastic Spoons</h3>
-            <p>Transparent & white spoons for ice-cream, desserts & catering.</p>
-          </div>
-          <div class="catalogue-media-multi">
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061936.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061931.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061935.jpg" alt="" />
-            <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061762-1.png" alt="" />
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ORDER FORM SECTION -->
-    <section class="section" id="order">
-      <div class="section-header">
-        <div>
-          <div class="section-title">Place order</div>
-          <div class="section-subtitle">
-            Simple <span>WhatsApp order</span> form
-          </div>
-        </div>
-      </div>
-
-      <div class="order-grid">
-        <div class="order-card">
-          <form class="order-form" onsubmit="return sendWhatsAppOrder(event)">
-            <div class="field-group">
-              <label class="field-label" for="order-name">Your name</label>
-              <input
-                id="order-name"
-                name="name"
-                type="text"
-                class="field-input"
-                placeholder="Optional – restaurant / shop / contact name"
-              />
-            </div>
-
-            <div class="field-group">
-              <label class="field-label" for="order-category">Category <span>*</span></label>
-              <select id="order-category" class="field-select" required>
-                <option value="">Select product category</option>
-                <option value="Disposable Plates">Disposable Plates</option>
-                <option value="Disposable Coffee Glass">Disposable Coffee Glass</option>
-                <option value="Packaged Water Glass">Packaged Water Glass</option>
-                <option value="Ping Pong / Party Glass">Ping Pong / Party Glass</option>
-                <option value="Packaged Water Bottles">Packaged Water Bottles</option>
-                <option value="Soft Drinks">Soft Drinks</option>
-                <option value="Disposable Round Plate">Disposable Round Plate</option>
-                <option value="Disposable Glass with Lid">Disposable Glass with Lid</option>
-                <option value="Disposable Plastic Bowl">Disposable Plastic Bowl</option>
-                <option value="Paper Plates">Paper Plates</option>
-                <option value="Laminated Paper Bowls">Laminated Paper Bowls</option>
-                <option value="Cling & Aluminium Foils">Cling & Aluminium Foils</option>
-                <option value="Paper Napkins">Paper Napkins</option>
-                <option value="Disposable Plastic Spoons">Disposable Plastic Spoons</option>
-              </select>
-            </div>
-
-            <div class="field-group">
-              <label class="field-label" for="order-qty">Quantity <span>*</span></label>
-              <input
-                id="order-qty"
-                type="text"
-                class="field-input"
-                placeholder="e.g. 100 plates, 20 packets, 5 boxes"
-                required
-              />
-              <div class="order-help">
-                You can describe units in your own words (packets, pieces, boxes etc.).
-              </div>
-            </div>
-
-            <div class="field-group">
-              <label class="field-label" for="order-notes">Extra details</label>
-              <textarea
-                id="order-notes"
-                class="field-textarea"
-                placeholder="Date, time, delivery / pickup preference, any specific brand, size etc."
-              ></textarea>
-            </div>
-
-            <div id="order-error" class="error-text">
-              Please fill both category and quantity before sending.
-            </div>
-
-            <button type="submit" class="button button-primary order-button">
-              <span>📲 Send order on WhatsApp</span>
-            </button>
-          </form>
-        </div>
-
-        <aside class="order-info-card">
-          <strong>How it works</strong>
-          <ul class="order-info-list">
-            <li>Fill the form with category, quantity and any extra details.</li>
-            <li>On submit, WhatsApp opens with a ready-to-send English message.</li>
-            <li>You just tap <em>Send</em> and then continue the conversation normally.</li>
-          </ul>
-          <p class="order-help" style="margin-top:0.7rem;">
-            Works with both WhatsApp and WhatsApp Business, on mobile and desktop.
-          </p>
-        </aside>
-      </div>
-    </section>
-
-    <!-- VISIT US -->
-    <section class="section" id="visit">
-      <div class="section-header">
-        <div>
-          <div class="section-title">Visit us</div>
-          <div class="section-subtitle">
-            Easy to reach in <span>Jalandhar</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="info-label">Store timings</div>
-          <div class="info-main">
-            <strong>Monday – Sunday</strong>
-            9:00am – 9:00pm
-          </div>
-          <div class="info-inline">
-            <span>Walk-in customers welcome</span>
-            <span>·</span>
-            <span>Bulk / wholesale enquiries on call</span>
-          </div>
-        </div>
-
-        <div class="info-card">
-          <div class="info-label">Address</div>
-          <div class="info-main">
-            <strong>The Disposable Depot</strong>
-            Kot Sadiq, Kala Sangha Road,<br />
-            Near New Jyoti Sweet Shop,<br />
-            Jalandhar, Punjab 144002
-          </div>
-
-          <a
-            class="map-link"
-            href="https://maps.app.goo.gl/bWkhQ82CtKQERFbx8"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span class="icon">📍</span>
-            <span>Open in Google Maps</span>
-          </a>
-
-          <div class="social-links">
-            <a href="https://www.facebook.com/thedisposabledepot" target="_blank" rel="noreferrer">
-              Facebook
-            </a>
-            <a href="https://www.instagram.com/the_disposable_depot" target="_blank" rel="noreferrer">
-              Instagram
-            </a>
-            <a href="https://wa.me/919814812623" target="_blank" rel="noreferrer">
-              WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-      <div>All Rights Reserved by <strong>K41L3Y</strong> || 2025</div>
-      <div class="footer-right">
-        <span>Made for <strong>The Disposable Depot</strong></span>
-      </div>
-    </footer>
+<header>
+  <div class="brand">THE DISPOSABLE DEPOT</div>
+  <div class="actions">
+    <a href="#order">Order</a>
+    <a href="tel:+919814812623">Call</a>
   </div>
+</header>
 
-  <!-- Floating Top button -->
-  <button id="backToTop">Top ↑</button>
+<section class="hero">
+  <div class="hero-box">
+    <h1>Best Prices in Jalandhar for <span>Packaged Water & Disposables</span></h1>
+    <p>Water Cups · Water Bottles · Plates · Glasses · Bowls · Foils · Napkins & More</p>
+    <a class="hero-btn" href="#order">Order on WhatsApp</a>
+  </div>
+</section>
 
-  <!-- Lightbox Slider -->
-  <div class="lightbox-backdrop" id="lightbox-backdrop">
-    <div class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
-      <div class="lightbox-header">
-        <div class="lightbox-title" id="lightbox-title">Gallery</div>
-        <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
-      </div>
-      <div class="lightbox-image-wrap">
-        <img id="lightbox-image" src="" alt="" />
-        <div class="lightbox-nav">
-          <button class="lightbox-btn" id="lightbox-prev" aria-label="Previous image">‹</button>
-          <button class="lightbox-btn" id="lightbox-next" aria-label="Next image">›</button>
-        </div>
-      </div>
-      <div class="lightbox-footer">
-        <span id="lightbox-caption"></span>
-        <span class="lightbox-counter" id="lightbox-counter"></span>
+<!-- CATALOGUE -->
+<section class="section">
+  <h2>Our Catalogue</h2>
+
+  <div class="catalogue">
+
+    <!-- Packaged Water Glass -->
+    <div class="card water-card" onclick="openGallery('waterGlass')">
+      <span class="tag">Most Selling</span>
+      <h3>Packaged Water Glass</h3>
+      <p>Box wise – perfect for events, offices & parties.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061753.jpg" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/drinking-water-glass-3038849766770950486076.jpg" alt="">
       </div>
     </div>
+
+    <!-- Packaged Water Bottles -->
+    <div class="card water-card" onclick="openGallery('waterBottles')">
+      <span class="tag">Most Selling</span>
+      <h3>Packaged Water Bottles</h3>
+      <p>Small bottles, box packing – ideal for functions & travel.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061959-1.jpg" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061764.png" alt="">
+      </div>
+    </div>
+
+    <!-- Disposable Coffee Glass -->
+    <div class="card" onclick="openGallery('coffeeGlass')">
+      <h3>Disposable Coffee Glass</h3>
+      <p>Ribbed, plain & printed hot cups.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061745-1.png" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000079749.jpg" alt="">
+      </div>
+    </div>
+
+    <!-- Ping Pong Glass -->
+    <div class="card" onclick="openGallery('pingPongGlass')">
+      <h3>Ping Pong Glass</h3>
+      <p>Colourful plastic party glasses.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061752.png" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/pngwing.com_.png" alt="">
+      </div>
+    </div>
+
+    <!-- Disposable Plates -->
+    <div class="card" onclick="openGallery('disposablePlates')">
+      <h3>Disposable Plates</h3>
+      <p>Round plates for all types of serving.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061802.png" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061804.png" alt="">
+      </div>
+    </div>
+
+    <!-- Disposable Round Plate (Bagasse style) -->
+    <div class="card" onclick="openGallery('roundPlate')">
+      <h3>Disposable Round Plate</h3>
+      <p>Premium eco plates for catering.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061934.jpg" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061940.jpg" alt="">
+      </div>
+    </div>
+
+    <!-- Disposable Glass with Lid -->
+    <div class="card" onclick="openGallery('glassWithLid')">
+      <h3>Disposable Glass with Lid</h3>
+      <p>Cold coffee, shakes, juices – with dome lids.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061944.jpg" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061806.png" alt="">
+      </div>
+    </div>
+
+    <!-- Disposable Plastic Bowl -->
+    <div class="card" onclick="openGallery('plasticBowl')">
+      <h3>Disposable Plastic Bowl</h3>
+      <p>Ideal for snacks, gravies & desserts.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061809.png" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061899.jpg" alt="">
+      </div>
+    </div>
+
+    <!-- Paper Plates (Foil) -->
+    <div class="card" onclick="openGallery('paperPlates')">
+      <h3>Paper Plates (Foil)</h3>
+      <p>Silver laminated plates & dona.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061932.jpg?w=848" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061939.jpg" alt="">
+      </div>
+    </div>
+
+    <!-- Laminated Paper Bowls -->
+    <div class="card" onclick="openGallery('laminatedBowls')">
+      <h3>Laminated Paper Bowls</h3>
+      <p>Dona bowls for chaat & prasad.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061938.jpg" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061924.jpg" alt="">
+      </div>
+    </div>
+
+    <!-- Laminated Paper Plate -->
+    <div class="card" onclick="openGallery('laminatedPlate')">
+      <h3>Laminated Paper Plate</h3>
+      <p>Heavy duty laminated serving plates.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061925.jpg" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061923.jpg" alt="">
+      </div>
+    </div>
+
+    <!-- Cling & Aluminium Foils -->
+    <div class="card" onclick="openGallery('foils')">
+      <h3>Cling & Aluminium Foils</h3>
+      <p>Food wrapping & storage rolls.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061919.png" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061917.jpg" alt="">
+      </div>
+    </div>
+
+    <!-- Paper Napkins -->
+    <div class="card" onclick="openGallery('napkins')">
+      <h3>Paper Napkins</h3>
+      <p>Cocktail, dispenser & tissue napkins.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061920.jpg?w=400" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061922.jpg" alt="">
+      </div>
+    </div>
+
+    <!-- Disposable Plastic Spoons -->
+    <div class="card" onclick="openGallery('plasticSpoons')">
+      <h3>Disposable Plastic Spoons</h3>
+      <p>Transparent & white spoons for catering.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061936.jpg" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061931.jpg" alt="">
+      </div>
+    </div>
+
+    <!-- Soft Drinks (kept as separate group, images commonly used) -->
+    <div class="card" onclick="openGallery('softDrinks')">
+      <h3>Soft Drinks (Brand Packs)</h3>
+      <p>Assorted bottles for parties & events.</p>
+      <div class="card-thumb">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/pngwing.com-1.png" alt="">
+        <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061756.png" alt="">
+      </div>
+    </div>
+
   </div>
+</section>
 
-  <script>
-    // --- Gallery data ---
-    const galleryData = {
-      plates: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061765.png", alt: "3 compartment plate" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061805.png", alt: "Tiger 12 inch plate" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061941.jpg", alt: "Stack of compartment plates" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061960.jpg", alt: "Deep plate" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000062692.png", alt: "Compartment tray plate" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000079750.jpg", alt: "Round plate stack" },
-      ],
-      coffee: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061745-1.png", alt: "Ripple coffee cup" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061754.png", alt: "Multi-colour cups" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061751.png", alt: "Plain white cup" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061768.png", alt: "Nescafe printed cup" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000079749.jpg", alt: "Printed cups set" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061896.jpg", alt: "Takeaway coffee cup with lid" },
-      ],
-      waterGlass: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/drinking-water-glass-3038849766770950486076.jpg", alt: "Water glass pack 1" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061753.jpg", alt: "Aqua water glass" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061763.jpg", alt: "Sealed water glasses" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061901.jpg", alt: "Water glass shrink pack" },
-      ],
-      pingPong: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061752.png", alt: "Multi colour party cups" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/pngwing.com_.png", alt: "Red ping pong cups" },
-      ],
-      waterBottle: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061959-1.jpg", alt: "Aquafina small bottles" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061764.png", alt: "Bisleri 250ml pack" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/pngwing.com-3.png", alt: "Shrink pack water bottles" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061750.png", alt: "AB waters square bottle" },
-      ],
-      softDrinks: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/pngwing.com-1.png", alt: "Soft drink mix 1" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061756.png", alt: "Soft drink mix 2" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061802.png", alt: "Soft drink pack" },
-      ],
-      roundPlates: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061803.png", alt: "Tiger round plate" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061804.png", alt: "Round plate top view" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061934.jpg", alt: "Round plates stack" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061940.jpg", alt: "Round plate close" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061937.jpg", alt: "Big plate stack" },
-      ],
-      glassWithLid: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061944.jpg", alt: "PET glass with lids" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061806.png", alt: "Single dome lid glass" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061807-1.png", alt: "PET glass pack" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061896.jpg", alt: "Takeaway glass with lid" },
-      ],
-      plasticBowl: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061809.png", alt: "Brown bowls" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061808.png", alt: "Bowl stack" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061899.jpg", alt: "Plastic bowls black background" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061926.jpg", alt: "Round bowl pack" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061923.jpg", alt: "White bowls stack" },
-      ],
-      paperPlates: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061932.jpg?w=848", alt: "Laminated paper plates stack" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061776.png", alt: "Laminated plate mixed pack" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061939.jpg", alt: "Laminated plate close" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/81kzwt5nefl-removebg-preview.png", alt: "Small foil bowls" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061938.jpg", alt: "Foil bowls sets" },
-      ],
-      laminatedBowls: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061800.png", alt: "Laminated bowl" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061924.jpg", alt: "Foil plates stack" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061925.jpg", alt: "Foil plate top view" },
-      ],
-      foils: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061919.png", alt: "Cling wrap roll" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061917.jpg", alt: "Aluminium foil box" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061916.jpg", alt: "Multiple foil rolls" },
-      ],
-      napkins: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061920.jpg?w=400", alt: "Plain napkin cube" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061922.jpg", alt: "Origami tissue box" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061921-1.jpg", alt: "Tshot napkin pack" },
-      ],
-      spoons: [
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061936.jpg", alt: "Transparent spoons" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061931.jpg", alt: "White spoons bulk pack" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061935.jpg", alt: "Metro spoon pack" },
-        { src: "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061762-1.png", alt: "Spoon closeup" },
-      ],
-    };
+<!-- ORDER FORM -->
+<section class="section" id="order">
+  <h2>WhatsApp Order</h2>
+  <div class="form-box">
+    <form onsubmit="return sendOrder(event)">
+      <select id="category" required>
+        <option value="">Select Product</option>
+        <option>Packaged Water – Cups & Bottles (Box-wise)</option>
+        <option>Disposable Coffee Glass</option>
+        <option>Ping Pong Glass</option>
+        <option>Disposable Plates</option>
+        <option>Disposable Round Plate</option>
+        <option>Disposable Glass with Lid</option>
+        <option>Disposable Plastic Bowl</option>
+        <option>Paper Plates (Foil)</option>
+        <option>Laminated Paper Bowls</option>
+        <option>Laminated Paper Plate</option>
+        <option>Cling & Aluminium Foils</option>
+        <option>Paper Napkins</option>
+        <option>Disposable Plastic Spoons</option>
+        <option>Soft Drinks</option>
+      </select>
 
-    const groupTitles = {
-      plates: "Disposable Plates",
-      coffee: "Disposable Coffee Glass",
-      waterGlass: "Packaged Water Glass",
-      pingPong: "Ping Pong / Party Glass",
-      waterBottle: "Packaged Water Bottles",
-      softDrinks: "Soft Drinks",
-      roundPlates: "Disposable Round Plate",
-      glassWithLid: "Disposable Glass with Lid",
-      plasticBowl: "Disposable Plastic Bowl",
-      paperPlates: "Paper Plates",
-      laminatedBowls: "Laminated Paper Bowls",
-      foils: "Cling & Aluminium Foils",
-      napkins: "Paper Napkins",
-      spoons: "Disposable Plastic Spoons",
-    };
+      <input id="qty" placeholder="Quantity (Box / Packet count)" required>
+      <textarea id="notes" placeholder="Delivery date, size, brand preference etc."></textarea>
 
-    const backdrop = document.getElementById("lightbox-backdrop");
-    const imgEl = document.getElementById("lightbox-image");
-    const captionEl = document.getElementById("lightbox-caption");
-    const counterEl = document.getElementById("lightbox-counter");
-    const titleEl = document.getElementById("lightbox-title");
+      <button class="order-btn" type="submit">Send Order on WhatsApp</button>
+    </form>
 
-    let currentGroup = null;
-    let currentIndex = 0;
+    <div class="payment-box">
+      <h3>UPI QR Payment – Coming Soon</h3>
+      <p>A static QR image will be placed here so customers can scan & pay easily.</p>
+      <img src="https://via.placeholder.com/150x150.png?text=UPI+QR" alt="UPI QR Placeholder">
+    </div>
+  </div>
+</section>
 
-    function openLightbox(groupKey, startIndex = 0) {
-      const images = galleryData[groupKey];
-      if (!images || !images.length) return;
+<!-- LIGHTBOX SLIDER -->
+<div id="lightbox">
+  <button id="prev" class="nav-btn" onclick="prevImg()">❮</button>
+  <img id="lightImg" src="" alt="">
+  <button id="next" class="nav-btn" onclick="nextImg()">❯</button>
+  <button id="closeLight" class="nav-btn" onclick="closeLightbox()">✕</button>
+</div>
 
-      currentGroup = groupKey;
-      currentIndex = startIndex;
+<!-- FLOATING BUTTONS -->
+<button id="waterQuickBtn" onclick="scrollToOrder()">💧</button>
+<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">Top ↑</button>
 
-      const { src, alt } = images[currentIndex];
-      imgEl.src = src;
-      imgEl.alt = alt;
-      captionEl.textContent = alt || "";
-      counterEl.textContent = `${currentIndex + 1} / ${images.length}`;
-      titleEl.textContent = groupTitles[groupKey] || "Gallery";
+<script>
+// --- GALLERIES: saari images yahan category wise --- //
+const galleries = {
+  waterGlass: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061753.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/drinking-water-glass-3038849766770950486076.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061901.jpg"
+  ],
+  waterBottles: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061959-1.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061764.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/pngwing.com-3.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061750.png"
+  ],
+  coffeeGlass: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061745-1.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061754.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061751.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061768.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000079749.jpg"
+  ],
+  pingPongGlass: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061752.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/pngwing.com_.png"
+  ],
+  disposablePlates: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061802.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061803.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061804.png"
+  ],
+  roundPlate: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061934.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061940.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061937.jpg"
+  ],
+  glassWithLid: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061944.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061806.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061807-1.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061896.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061808.png"
+  ],
+  plasticBowl: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061809.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061899.jpg"
+  ],
+  paperPlates: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061932.jpg?w=848",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061939.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/81kzwt5nefl-removebg-preview.png"
+  ],
+  laminatedBowls: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061938.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061800.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061924.jpg"
+  ],
+  laminatedPlate: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061925.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061923.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061927.jpg?w=757"
+  ],
+  foils: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061919.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061917.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061916.jpg"
+  ],
+  napkins: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061920.jpg?w=400",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061922.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061921-1.jpg"
+  ],
+  plasticSpoons: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061936.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061931.jpg",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061935.jpg"
+  ],
+  softDrinks: [
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/pngwing.com-1.png",
+    "https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061756.png"
+  ]
+};
 
-      backdrop.classList.add("is-open");
-    }
+let currentGallery = [];
+let currentIndex = 0;
 
-    function closeLightbox() {
-      backdrop.classList.remove("is-open");
-      imgEl.src = "";
-      imgEl.alt = "";
-      currentGroup = null;
-      currentIndex = 0;
-    }
+function openGallery(key){
+  currentGallery = galleries[key] || [];
+  if(!currentGallery.length) return;
+  currentIndex = 0;
+  document.getElementById("lightImg").src = currentGallery[0];
+  document.getElementById("lightbox").style.display = "flex";
 
-    function showNext(delta) {
-      if (!currentGroup) return;
-      const images = galleryData[currentGroup];
-      currentIndex = (currentIndex + delta + images.length) % images.length;
-      const { src, alt } = images[currentIndex];
-      imgEl.src = src;
-      imgEl.alt = alt;
-      captionEl.textContent = alt || "";
-      counterEl.textContent = `${currentIndex + 1} / ${images.length}`;
-    }
+  // Water categories -> order form auto-select + quick button
+  if(key === "waterGlass" || key === "waterBottles"){
+    document.getElementById("category").value = "Packaged Water – Cups & Bottles (Box-wise)";
+    document.getElementById("waterQuickBtn").style.display = "flex";
+  }
+}
 
-    document.querySelectorAll(".catalogue-item").forEach((card) => {
-      card.addEventListener("click", () => {
-        const key = card.getAttribute("data-group");
-        openLightbox(key, 0);
-      });
-    });
+function nextImg(){
+  if(!currentGallery.length) return;
+  currentIndex = (currentIndex + 1) % currentGallery.length;
+  document.getElementById("lightImg").src = currentGallery[currentIndex];
+}
+function prevImg(){
+  if(!currentGallery.length) return;
+  currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+  document.getElementById("lightImg").src = currentGallery[currentIndex];
+}
+function closeLightbox(){
+  document.getElementById("lightbox").style.display = "none";
+}
 
-    document.getElementById("lightbox-close").addEventListener("click", closeLightbox);
-    document.getElementById("lightbox-prev").addEventListener("click", () => showNext(-1));
-    document.getElementById("lightbox-next").addEventListener("click", () => showNext(1));
+document.getElementById("lightbox").addEventListener("click",e=>{
+  if(e.target.id === "lightbox") closeLightbox();
+});
 
-    backdrop.addEventListener("click", (e) => {
-      if (e.target === backdrop) {
-        closeLightbox();
-      }
-    });
+function sendOrder(e){
+  e.preventDefault();
+  const c = document.getElementById("category").value;
+  const q = document.getElementById("qty").value;
+  const n = document.getElementById("notes").value;
 
-    document.addEventListener("keydown", (e) => {
-      if (!backdrop.classList.contains("is-open")) return;
-      if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowRight") showNext(1);
-      if (e.key === "ArrowLeft") showNext(-1);
-    });
+  const msg =
+`Hello, I would like to place an order from The Disposable Depot.
 
-    // WhatsApp order form – English message
-    function sendWhatsAppOrder(event) {
-      event.preventDefault();
+Product: ${c}
+Quantity (Box / Packet): ${q}
+Extra Details: ${n || "N/A"}`;
 
-      const name = document.getElementById("order-name").value.trim();
-      const category = document.getElementById("order-category").value.trim();
-      const qty = document.getElementById("order-qty").value.trim();
-      const notes = document.getElementById("order-notes").value.trim();
-      const errorEl = document.getElementById("order-error");
+  const url = "https://wa.me/919814812623?text=" + encodeURIComponent(msg);
+  window.open(url,"_blank");
+  return false;
+}
 
-      if (!category || !qty) {
-        errorEl.classList.add("is-visible");
-        return false;
-      }
-      errorEl.classList.remove("is-visible");
+function scrollToOrder(){
+  document.getElementById("order").scrollIntoView({behavior:"smooth"});
+}
 
-      const plain = `Hello, I would like to place an order from The Disposable Depot website.
+// Back to top button visibility
+window.addEventListener("scroll",()=>{
+  document.getElementById("backTop").style.display =
+    window.scrollY > 280 ? "block" : "none";
+});
+</script>
 
-Name: ${name || "N/A"}
-Category: ${category}
-Quantity: ${qty}
-Details: ${notes || "N/A"}`;
-
-      const encoded = encodeURIComponent(plain);
-      const phone = "919814812623";
-      const url = "https://wa.me/" + phone + "?text=" + encoded;
-
-      window.open(url, "_blank");
-      return false;
-    }
-
-    // Floating Top ↑ button
-    const backToTopBtn = document.getElementById("backToTop");
-    window.addEventListener("scroll", () => {
-      backToTopBtn.style.display = window.scrollY > 280 ? "block" : "none";
-    });
-    backToTopBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  </script>
 </body>
 </html>
