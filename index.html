@@ -11,399 +11,275 @@
 
 <style>
     :root {
+        /* Light Theme Variables */
         --primary: #f97316; /* Orange */
         --primary-dark: #c2410c;
         --secondary: #16a34a; /* Green */
-        --bg-light: #fff7ed;
-        --text-dark: #1f2937;
-        --glass-bg: rgba(255, 255, 255, 0.65);
-        --glass-border: 1px solid rgba(255, 255, 255, 0.5);
-        --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        --bg-body: #fff7ed;
+        --text-main: #1f2937;
+        --text-muted: #4b5563;
+        --card-bg: #ffffff;
+        
+        /* Adjusted Glass Variables for Visibility */
+        --glass-bg-strong: rgba(255, 255, 255, 0.35); /* More transparent */
+        --glass-border-strong: 1px solid rgba(255, 255, 255, 0.6);
+        --glass-bg-header: rgba(255, 255, 255, 0.75);
+        --shadow-color: rgba(0,0,0,0.1);
+        --form-bg: #fff;
+        --input-bg: #f9fafb;
+    }
+
+    /* Dark Theme Variables */
+    body.dark-mode {
+        --bg-body: #0f172a; /* Deep Blue/Slate */
+        --text-main: #f3f4f6;
+        --text-muted: #9ca3af;
+        --card-bg: #1e293b;
+        
+        /* Adjusted Glass Variables Dark */
+        --glass-bg-strong: rgba(30, 41, 59, 0.6); /* More transparent dark */
+        --glass-border-strong: 1px solid rgba(255, 255, 255, 0.15);
+        --glass-bg-header: rgba(30, 41, 59, 0.85);
+        --shadow-color: rgba(0,0,0,0.5);
+        --form-bg: #1e293b;
+        --input-bg: #334155;
     }
 
     * { box-sizing: border-box; }
-    
     html { scroll-behavior: smooth; }
     
     body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        background-color: var(--bg-light);
-        color: var(--text-dark);
-        overflow-x: hidden;
+        margin: 0; font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-body); color: var(--text-main);
+        overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease;
     }
 
     a { text-decoration: none; transition: 0.3s ease; }
-    ul { list-style: none; padding: 0; margin: 0; }
+    button { cursor: pointer; }
 
-    /* --- SUPREME GLASSMORPHISM HEADER --- */
+    /* --- HEADER & PREMIUM TOGGLE --- */
     header {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-        max-width: 1200px;
-        z-index: 1000;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 24px;
-        border-radius: 50px;
-        
-        /* The Supreme Glass Effect */
-        background: rgba(255, 255, 255, 0.75);
+        position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+        width: 90%; max-width: 1200px; z-index: 1000;
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 12px 24px; border-radius: 50px;
+        background: var(--glass-bg-header);
         backdrop-filter: saturate(180%) blur(20px);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
-        border: var(--glass-border);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 10px 30px var(--shadow-color);
         transition: all 0.4s ease;
     }
-
-    /* Header shrinks slightly on scroll via JS */
-    header.scrolled {
-        top: 10px;
-        padding: 10px 20px;
-        background: rgba(255, 255, 255, 0.85);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    }
+    header.scrolled { top: 10px; padding: 10px 20px; }
 
     .brand {
-        font-weight: 800;
-        font-size: 18px;
+        font-weight: 800; 
+        font-size: 24px; /* Increased Size */
         background: linear-gradient(90deg, var(--primary-dark), var(--primary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         letter-spacing: 0.5px;
     }
 
-    .nav-actions { display: flex; gap: 10px; }
+    .nav-actions { display: flex; gap: 15px; align-items: center; }
 
-    .btn-nav {
-        padding: 8px 18px;
-        border-radius: 30px;
-        font-size: 13px;
-        font-weight: 600;
-        border: 1px solid transparent;
-    }
-
-    .btn-call {
-        color: var(--text-dark);
-        background: transparent;
-        border: 1px solid rgba(0,0,0,0.1);
-    }
-    .btn-call:hover { background: rgba(0,0,0,0.05); }
-
+    .btn-nav { padding: 8px 18px; border-radius: 30px; font-size: 13px; font-weight: 600; }
+    .btn-call { color: var(--text-main); border: 1px solid var(--text-muted); background: transparent; opacity: 0.8; }
     .btn-order {
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: white;
-        box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
-    }
-    .btn-order:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(249, 115, 22, 0.6);
-    }
-
-    /* --- PARALLAX SECTIONS --- */
-    .parallax-wrapper {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-    }
-
-    .parallax-bg {
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        position: relative;
-    }
-
-    /* Hero Parallax */
-    .hero {
-        min-height: 85vh;
-        background-image: url("https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&w=1920&q=80");
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        color: white; border: none; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
     }
     
-    .hero::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(255, 247, 237, 1));
+    /* Premium Switch Styles */
+    .theme-switch {
+        position: relative; display: inline-block; width: 60px; height: 30px;
     }
+    .theme-switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+        position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+        background-color: #ccc; transition: .4s; border-radius: 34px;
+        display: flex; align-items: center; justify-content: space-between; padding: 0 5px;
+    }
+    .slider:before {
+        position: absolute; content: ""; height: 24px; width: 24px; left: 3px; bottom: 3px;
+        background-color: white; transition: .4s; border-radius: 50%; z-index: 2;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    input:checked + .slider { background-color: var(--primary); }
+    input:checked + .slider:before { transform: translateX(30px); }
+    .icon-sun, .icon-moon { font-size: 14px; z-index: 1; }
+    .icon-sun { color: #f59e0b; } .icon-moon { color: #f3f4f6; }
 
+
+    /* --- HERO SECTION --- */
+    .parallax-wrapper { position: relative; width: 100%; overflow: hidden; }
+    .parallax-bg {
+        background-attachment: fixed; background-position: center;
+        background-repeat: no-repeat; background-size: cover; position: relative;
+    }
+    .hero {
+        min-height: 90vh;
+        background-image: url("https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&w=1920&q=80");
+        display: flex; align-items: center; justify-content: center;
+    }
+    .hero::after {
+        content: ''; position: absolute; inset: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.05), var(--bg-body));
+    }
+    
+    /* Reduced Blur for Better Visibility */
     .hero-content {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        max-width: 800px;
-        padding: 40px;
-        
-        /* Glass Box */
-        background: rgba(255, 255, 255, 0.6);
-        backdrop-filter: blur(12px);
+        position: relative; z-index: 2; text-align: center;
+        max-width: 800px; padding: 50px 40px;
+        background: var(--glass-bg-strong);
+        backdrop-filter: blur(10px); /* Reduced Blur to 10px */
+        -webkit-backdrop-filter: blur(10px);
         border-radius: 40px;
-        border: 1px solid rgba(255,255,255,0.8);
-        box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        border: var(--glass-border-strong);
+        box-shadow: 0 30px 70px rgba(0,0,0,0.15);
         animation: fadeInUp 1s ease-out;
     }
-
-    .hero-content h1 {
-        font-size: 42px;
-        line-height: 1.2;
-        margin-bottom: 16px;
-        color: var(--text-dark);
-    }
+    .hero-content h1 { font-size: 42px; margin-bottom: 16px; color: var(--text-main); text-shadow: 0 1px 3px rgba(255,255,255,0.4); }
+    body.dark-mode .hero-content h1 { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    
     .hero-content h1 span { color: var(--primary-dark); }
-    .hero-content p { font-size: 16px; color: #555; margin-bottom: 24px; }
-
-    .hero-cta {
+    .hero-content p { font-size: 17px; color: var(--text-main); margin-bottom: 30px; font-weight: 600; opacity: 1; }
+    
+    /* Illuminated Button (No Icon) */
+    .hero-cta-whatsapp {
         display: inline-block;
-        background: var(--secondary);
-        color: white;
-        padding: 14px 32px;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 16px;
-        box-shadow: 0 8px 20px rgba(22, 163, 74, 0.4);
+        background: linear-gradient(135deg, #25D366, #128C7E);
+        color: white; padding: 16px 48px; border-radius: 50px;
+        font-weight: 700; font-size: 18px; border: 2px solid #4ade80;
+        box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
+        animation: pulseGreen 2s infinite; transition: 0.3s;
     }
-    .hero-cta:hover {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 12px 25px rgba(22, 163, 74, 0.5);
-    }
-
-    /* --- CATALOGUE GRID --- */
-    .section {
-        padding: 80px 20px;
-        max-width: 1200px;
-        margin: auto;
-        position: relative;
-        z-index: 5;
+    .hero-cta-whatsapp:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 0 30px rgba(37, 211, 102, 0.8); }
+    @keyframes pulseGreen {
+        0% { box-shadow: 0 0 10px rgba(37, 211, 102, 0.5); }
+        50% { box-shadow: 0 0 25px rgba(37, 211, 102, 0.8), 0 0 40px rgba(37, 211, 102, 0.4); }
+        100% { box-shadow: 0 0 10px rgba(37, 211, 102, 0.5); }
     }
 
+    /* --- CATALOGUE --- */
+    .section { padding: 80px 20px; max-width: 1200px; margin: auto; position: relative; z-index: 5; }
     .section-title {
-        text-align: center;
-        font-size: 36px;
-        font-weight: 800;
-        margin-bottom: 50px;
-        position: relative;
-        display: inline-block;
-        left: 50%;
-        transform: translateX(-50%);
+        text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px;
+        color: var(--text-main); position: relative;
     }
-    .section-title::after {
-        content: '';
-        display: block;
-        width: 60px;
-        height: 4px;
-        background: var(--primary);
-        margin: 10px auto 0;
-        border-radius: 2px;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 30px;
-    }
-
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
     .card {
-        background: #fff;
-        border-radius: 24px;
-        overflow: hidden;
-        border: 1px solid rgba(0,0,0,0.05);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        position: relative;
+        background: var(--card-bg); border-radius: 24px; overflow: hidden;
+        border: 1px solid var(--glass-border-strong); box-shadow: 0 10px 30px var(--shadow-color);
+        cursor: pointer; transition: 0.3s;
     }
-
-    .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-    }
-
-    .card-img-container {
-        height: 180px;
-        display: flex;
-        gap: 2px;
-    }
-    .card-img-container img {
-        flex: 1;
-        object-fit: cover;
-        height: 100%;
-        transition: transform 0.5s ease;
-    }
+    .card:hover { transform: translateY(-10px); }
+    .card-img-container { height: 180px; display: flex; gap: 2px; }
+    .card-img-container img { flex: 1; object-fit: cover; height: 100%; transition: transform 0.5s; }
     .card:hover .card-img-container img { transform: scale(1.05); }
-
     .card-body { padding: 20px; }
+    .card h3 { margin: 0 0 8px; font-size: 18px; font-weight: 700; color: var(--text-main); }
+    .card p { margin: 0; font-size: 13px; color: var(--text-muted); }
     .card-tag {
-        font-size: 10px;
-        font-weight: 800;
-        text-transform: uppercase;
-        color: var(--secondary);
-        background: #ecfdf5;
-        padding: 4px 10px;
-        border-radius: 20px;
-        display: inline-block;
-        margin-bottom: 8px;
+        font-size: 10px; font-weight: 800; text-transform: uppercase;
+        color: var(--secondary); background: rgba(22, 163, 74, 0.1);
+        padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 8px;
     }
-    .card h3 { margin: 0 0 8px; font-size: 18px; font-weight: 700; }
-    .card p { margin: 0; font-size: 13px; color: #666; line-height: 1.5; }
-
-    /* Special Highlight for Water */
-    .card.highlight {
-        border: 2px solid var(--secondary);
-        background: linear-gradient(to bottom right, #f0fdf4, #fff);
-    }
-
-    /* --- MID-PAGE PARALLAX BANNER (Mountain Water Theme) --- */
+    .card.highlight { border: 2px solid var(--secondary); }
+    
+    /* --- NEW MID BANNER (Light Drinking Water) --- */
     .mid-banner {
-        padding: 100px 20px;
-        /* Updated to Mountain/Water Image */
-        background-image: url("https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=1920&q=80");
-        margin: 60px 0;
-        text-align: center;
-        color: white;
-        position: relative;
+        padding: 120px 20px;
+        background-image: url("https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=1920&q=80");
+        margin: 60px 0; text-align: center; color: white; position: relative;
     }
     .mid-banner::before {
         content: ''; position: absolute; inset: 0;
-        background: rgba(0,0,0,0.4); /* Slightly lighter overlay to show the water */
+        background: rgba(0,0,0,0.3);
     }
-    .mid-content {
-        position: relative; z-index: 2;
+    .mid-content { position: relative; z-index: 2; }
+    .mid-content h2 { font-size: 36px; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+    .mid-content p { font-size: 20px; font-weight: 500; text-shadow: 0 2px 10px rgba(0,0,0,0.5); margin-bottom: 40px; }
+
+    /* Glowing Button */
+    .btn-glow-gold {
+        display: inline-block; padding: 16px 40px; font-size: 18px; font-weight: 800; color: #fff;
+        text-transform: uppercase; letter-spacing: 1px; background: rgba(255, 255, 255, 0.15);
+        border: 2px solid #fff; border-radius: 50px; backdrop-filter: blur(5px);
+        box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 20px var(--primary);
+        animation: glowingGold 2s infinite ease-in-out; transition: 0.3s;
     }
-    .mid-content h2 { font-size: 32px; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-    .mid-content p { font-size: 18px; opacity: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.5); font-weight: 600; }
+    .btn-glow-gold:hover {
+        background: var(--primary); border-color: var(--primary); transform: scale(1.05);
+    }
+    @keyframes glowingGold {
+        0% { box-shadow: 0 0 5px #fff, 0 0 15px var(--primary); }
+        50% { box-shadow: 0 0 20px #fff, 0 0 30px var(--primary), 0 0 40px var(--primary-dark); }
+        100% { box-shadow: 0 0 5px #fff, 0 0 15px var(--primary); }
+    }
 
     /* --- ORDER FORM --- */
     .form-wrapper {
-        background: #fff;
-        padding: 40px;
-        border-radius: 30px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-        max-width: 700px;
-        margin: 0 auto;
-        border: 1px solid #eee;
+        background: var(--form-bg); padding: 40px; border-radius: 30px;
+        box-shadow: 0 20px 60px var(--shadow-color); max-width: 700px; margin: 0 auto;
+        border: 1px solid rgba(128,128,128,0.1);
     }
-    .form-group { margin-bottom: 20px; }
-    label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; }
-    
+    label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-main); }
     input, select, textarea {
-        width: 100%;
-        padding: 14px 18px;
-        border-radius: 12px;
-        border: 1px solid #e5e7eb;
-        background: #f9fafb;
-        font-family: inherit;
-        font-size: 14px;
-        transition: 0.2s;
+        width: 100%; padding: 14px 18px; border-radius: 12px;
+        border: 1px solid rgba(128,128,128,0.3); background: var(--input-bg); color: var(--text-main);
+        font-family: inherit; margin-bottom: 20px; transition: 0.2s;
     }
     input:focus, select:focus, textarea:focus {
-        outline: none;
-        border-color: var(--primary);
-        background: #fff;
-        box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1);
+        outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
     }
-
     .btn-submit {
-        width: 100%;
-        background: var(--secondary);
-        color: white;
-        padding: 16px;
-        border: none;
-        border-radius: 12px;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
+        width: 100%; background: var(--secondary); color: white; padding: 16px;
+        border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer;
         transition: 0.3s;
-        box-shadow: 0 10px 20px rgba(22, 163, 74, 0.2);
     }
-    .btn-submit:hover {
-        background: #15803d;
-        transform: translateY(-2px);
-    }
+    .btn-submit:hover { background: #15803d; transform: translateY(-2px); }
 
-    /* --- LIGHTBOX --- */
+    /* --- MISC --- */
     #lightbox {
-        position: fixed; inset: 0; z-index: 2000;
-        background: rgba(0,0,0,0.9);
-        backdrop-filter: blur(10px);
-        display: none;
-        align-items: center; justify-content: center;
-        opacity: 0; transition: opacity 0.3s ease;
+        position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.95);
+        display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.3s;
     }
     #lightbox.active { opacity: 1; }
-    
-    .lb-content { position: relative; max-width: 90vw; max-height: 85vh; }
-    #lightImg {
-        max-width: 100%; max-height: 80vh;
-        border-radius: 12px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    #lightbox.active #lightImg { transform: scale(1); }
-
+    .lb-content { position: relative; max-width: 90vw; }
+    #lightImg { max-height: 80vh; border-radius: 12px; }
     .nav-btn {
         position: absolute; top: 50%; transform: translateY(-50%);
-        background: rgba(255,255,255,0.2); color: white;
-        border: 1px solid rgba(255,255,255,0.3);
-        width: 50px; height: 50px; border-radius: 50%;
-        font-size: 24px; cursor: pointer; transition: 0.2s;
-        display: flex; align-items: center; justify-content: center;
+        background: rgba(255,255,255,0.1); color: white; width: 50px; height: 50px;
+        border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); font-size: 24px; cursor: pointer;
     }
-    .nav-btn:hover { background: white; color: black; }
-    #prev { left: -70px; }
-    #next { right: -70px; }
-    #close {
-        position: absolute; top: 20px; right: 20px;
-        background: none; color: white; border: none; font-size: 30px; cursor: pointer;
-    }
+    #prev { left: -70px; } #next { right: -70px; }
+    #close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: white; font-size: 30px; cursor: pointer;}
 
-    /* --- FLOATING ACTIONS --- */
     .float-btn {
-        position: fixed; z-index: 999;
-        border: none; cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: fixed; z-index: 999; border: none; cursor: pointer;
         display: flex; align-items: center; justify-content: center;
         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
     #waterQuickBtn {
-        right: 20px; bottom: 90px;
-        width: 56px; height: 56px;
-        border-radius: 50%;
-        background: #3b82f6; color: white;
-        font-size: 24px;
-        transform: scale(0);
+        right: 20px; bottom: 90px; width: 56px; height: 56px; border-radius: 50%;
+        background: #3b82f6; color: white; font-size: 24px; transform: scale(0); transition: 0.3s;
     }
     #waterQuickBtn.show { transform: scale(1); }
-
     #backTop {
-        right: 20px; bottom: 30px;
-        width: 50px; height: 50px;
-        border-radius: 50%;
-        background: var(--text-dark); color: white;
-        font-size: 20px;
-        opacity: 0; pointer-events: none;
+        right: 20px; bottom: 30px; width: 50px; height: 50px; border-radius: 50%;
+        background: var(--text-main); color: var(--bg-body); font-size: 20px; opacity: 0; pointer-events: none; transition: 0.3s;
     }
     #backTop.show { opacity: 1; pointer-events: all; }
 
-    /* Animations */
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
     @media (max-width: 768px) {
         .hero-content h1 { font-size: 32px; }
-        #prev, #next { position: fixed; top: auto; bottom: 20px; }
+        .hero-content { padding: 30px 20px; width: 95%; }
+        #prev, #next { bottom: -60px; top: auto; }
         #prev { left: 20px; } #next { right: 20px; }
-        .lb-content { max-width: 100%; }
-        header { width: 95%; top: 15px; padding: 10px 16px; }
+        .mid-content h2 { font-size: 26px; }
+        header { padding: 10px 15px; }
+        .nav-actions { gap: 8px; }
     }
 </style>
 </head>
@@ -414,6 +290,14 @@
     <div class="nav-actions">
         <a href="tel:+919814812623" class="btn-nav btn-call">Call</a>
         <a href="#order" class="btn-nav btn-order">Order Now</a>
+        
+        <label class="theme-switch" for="checkbox" title="Toggle Dark Mode">
+            <input type="checkbox" id="checkbox" onchange="toggleTheme(this.checked)">
+            <div class="slider round">
+                <span class="icon-sun">☀&#xFE0E;</span>
+                <span class="icon-moon">🌙</span>
+            </div>
+        </label>
     </div>
 </header>
 
@@ -422,14 +306,16 @@
         <div class="hero-content">
             <h1>Best Wholesale Prices in Jalandhar for <br><span>Water & Disposables</span></h1>
             <p>Premium Quality Cups, Bottles, Plates, Foils & Tissues delivered to your doorstep.</p>
-            <a href="#order" class="hero-cta">Order On WhatsApp</a>
+            
+            <a href="#order" class="hero-cta-whatsapp">
+               Order On WhatsApp
+            </a>
         </div>
     </section>
 </div>
 
 <section class="section" id="catalogue">
     <h2 class="section-title">Our Catalogue</h2>
-    
     <div class="grid">
         <div class="card highlight" onclick="openGallery('waterGlass')">
             <div class="card-body">
@@ -442,7 +328,6 @@
                 <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/drinking-water-glass-3038849766770950486076.jpg" alt="">
             </div>
         </div>
-
         <div class="card highlight" onclick="openGallery('waterBottles')">
             <div class="card-body">
                 <span class="card-tag">Travel Ready</span>
@@ -454,7 +339,6 @@
                 <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061764.png" alt="">
             </div>
         </div>
-
         <div class="card" onclick="openGallery('coffeeGlass')">
             <div class="card-body">
                 <h3>Disposable Coffee Cups</h3>
@@ -465,7 +349,6 @@
                 <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000079749.jpg" alt="">
             </div>
         </div>
-
         <div class="card" onclick="openGallery('pingPongGlass')">
             <div class="card-body">
                 <h3>Ping Pong / Party Glass</h3>
@@ -476,7 +359,6 @@
                 <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/pngwing.com_.png" alt="">
             </div>
         </div>
-
         <div class="card" onclick="openGallery('disposablePlates')">
             <div class="card-body">
                 <h3>Standard Plates</h3>
@@ -487,7 +369,6 @@
                 <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061804.png" alt="">
             </div>
         </div>
-
         <div class="card" onclick="openGallery('roundPlate')">
             <div class="card-body">
                 <h3>Premium Round Plate</h3>
@@ -498,7 +379,6 @@
                 <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061940.jpg" alt="">
             </div>
         </div>
-
         <div class="card" onclick="openGallery('glassWithLid')">
             <div class="card-body">
                 <h3>Glass with Dome Lid</h3>
@@ -509,7 +389,6 @@
                 <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061806.png" alt="">
             </div>
         </div>
-
         <div class="card" onclick="openGallery('plasticBowl')">
             <div class="card-body">
                 <h3>Plastic Bowls</h3>
@@ -520,7 +399,6 @@
                 <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061899.jpg" alt="">
             </div>
         </div>
-        
          <div class="card" onclick="openGallery('foils')">
             <div class="card-body">
                 <h3>Aluminium & Cling Foils</h3>
@@ -531,7 +409,6 @@
                 <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061917.jpg" alt="">
             </div>
         </div>
-
          <div class="card" onclick="openGallery('napkins')">
             <div class="card-body">
                 <h3>Paper Napkins</h3>
@@ -542,7 +419,6 @@
                 <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061922.jpg" alt="">
             </div>
         </div>
-        
         <div class="card" onclick="openGallery('plasticSpoons')">
             <div class="card-body">
                 <h3>Disposable Spoons</h3>
@@ -553,7 +429,6 @@
                 <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000061931.jpg" alt="">
             </div>
         </div>
-        
         <div class="card" onclick="openGallery('softDrinks')">
             <div class="card-body">
                 <h3>Soft Drinks</h3>
@@ -571,6 +446,10 @@
     <div class="mid-content">
         <h2>Bulk Orders? We've got you covered.</h2>
         <p>Reliable Supply for Events, Caterers & Offices in Jalandhar.</p>
+        
+        <a href="tel:+919814812623" class="btn-glow-gold">
+            Call for Bulk Rates 📞
+        </a>
     </div>
 </section>
 
@@ -651,10 +530,8 @@ function openGallery(key){
   currentIndex = 0;
   lbImg.src = currentGallery[0];
   lb.style.display = "flex";
-  // Small delay to trigger CSS fade-in
   setTimeout(() => lb.classList.add("active"), 10);
 
-  // Auto-select dropdown if water category
   if(key.includes("water")){
      document.getElementById("category").value = "Packaged Water – Cups & Bottles";
      document.getElementById("waterQuickBtn").classList.add("show");
@@ -692,7 +569,6 @@ function sendOrder(e){
   if(!cat) { alert("Please select a product"); return false; }
 
   const text = `*New Order from Website* %0A%0A📦 *Product:* ${cat} %0A🔢 *Quantity:* ${qty} %0A📝 *Notes:* ${notes || "None"}`;
-  
   window.open("https://wa.me/919814812623?text=" + text, "_blank");
 }
 
@@ -700,7 +576,7 @@ function scrollToOrder(){
   document.getElementById("order").scrollIntoView({behavior:"smooth"});
 }
 
-// Scroll Effects (Header Glass & BackToTop)
+// Scroll Effects
 window.addEventListener("scroll", () => {
   const head = document.getElementById("mainHeader");
   const topBtn = document.getElementById("backTop");
@@ -713,6 +589,15 @@ window.addEventListener("scroll", () => {
       topBtn.classList.remove("show");
   }
 });
+
+// Dark Mode Toggle Logic (Synced with checkbox)
+function toggleTheme(isChecked) {
+    if(isChecked){
+        document.body.classList.add("dark-mode");
+    } else {
+        document.body.classList.remove("dark-mode");
+    }
+}
 </script>
 
 </body>
