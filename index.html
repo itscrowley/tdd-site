@@ -100,13 +100,16 @@
         background-repeat: no-repeat; background-size: cover; position: relative;
     }
     .hero {
-        min-height: 90vh;
+        min-height: 95vh;
         background-image: url("https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&w=1920&q=80");
         display: flex; 
         flex-direction: column; 
         align-items: center; 
         justify-content: center;
-        padding-bottom: 100px; 
+        
+        /* FIX: Added Padding Top to push content below header */
+        padding-top: 160px; 
+        padding-bottom: 80px; 
     }
     .hero::after {
         content: ''; position: absolute; inset: 0;
@@ -123,7 +126,6 @@
         border: var(--glass-border-strong);
         backdrop-filter: blur(var(--glass-blur-amount));
         -webkit-backdrop-filter: blur(var(--glass-blur-amount));
-        /* Margin handled by layout spacing below */
     }
     .hero-content h1 { font-size: 42px; margin-bottom: 16px; color: var(--text-main); text-shadow: 0 1px 3px rgba(255,255,255,0.4); }
     body.dark-mode .hero-content h1 { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
@@ -147,7 +149,7 @@
         100% { box-shadow: 0 0 10px rgba(37, 211, 102, 0.5); }
     }
 
-    /* --- HERO ACTIONS ROW --- */
+    /* --- HERO ACTIONS ROW (Lowered Position) --- */
     .hero-actions-row {
         position: relative; z-index: 5;
         display: flex;
@@ -155,9 +157,8 @@
         align-items: center;
         gap: 20px;
         
-        /* SPACING */
-        margin-top: 45px; 
-        margin-bottom: 45px; 
+        margin-top: 45px; /* Space between Main Box and this Bar */
+        margin-bottom: 45px; /* Space between this Bar and Mouse Scroll */
         
         /* Glass Style */
         padding: 12px 30px;
@@ -185,6 +186,7 @@
         border: 2px solid #fff;
         background: rgba(255,255,255,0.3);
         transition: 0.3s;
+        /* Illumination Animation */
         animation: glowingWhite 2s infinite ease-in-out;
     }
     body.dark-mode .btn-hero-call { color: #fff; border-color: rgba(255,255,255,0.6); }
@@ -223,42 +225,11 @@
     .icon-sun, .icon-moon { font-size: 12px; z-index: 1; color: var(--text-main); }
     body.dark-mode .icon-sun, body.dark-mode .icon-moon { color: #fff; }
 
-    /* --- NEW UNIQUE SCROLL MOUSE ANIMATION --- */
-    .scroll-mouse {
-        position: relative;
-        z-index: 5;
-        width: 26px;
-        height: 42px;
-        border: 2px solid var(--text-main);
-        border-radius: 20px;
-        cursor: pointer;
-        opacity: 0.7;
-    }
-    body.dark-mode .scroll-mouse { border-color: #fff; }
-
-    .wheel {
-        position: absolute;
-        top: 6px;
-        left: 50%;
-        width: 4px;
-        height: 4px;
-        margin-left: -2px;
-        background-color: var(--text-main);
-        border-radius: 50%;
-        animation: scrollWheel 2s infinite;
-    }
-    body.dark-mode .wheel { background-color: #fff; }
-
-    @keyframes scrollWheel {
-        0% { transform: translateY(0); opacity: 1; }
-        100% { transform: translateY(15px); opacity: 0; }
-    }
-
-
     /* --- FEATURES STRIP --- */
     .features-strip {
         position: relative; z-index: 10;
-        margin-top: -80px; 
+        /* Adjusted margin to account for spacing */
+        margin-top: -60px; 
         margin-bottom: 40px;
         padding: 0 20px;
     }
@@ -448,6 +419,7 @@
         }
 
         /* Hero Adjustments */
+        .hero { padding-top: 140px; padding-bottom: 60px; }
         .hero-content h1 { font-size: 32px; }
         .hero-content { padding: 30px 20px; width: 95%; }
         
@@ -455,7 +427,7 @@
         .hero-actions-row {
             gap: 15px;
             padding: 10px 20px;
-            margin-top: 30px; /* Adjusted Mobile Spacing */
+            margin-top: 30px; 
             margin-bottom: 30px;
         }
         
@@ -476,7 +448,7 @@
         #next { right: 20px; }
 
         .mid-content h2 { font-size: 26px; }
-        .features-strip { margin-top: -10px; }
+        .features-strip { margin-top: -30px; }
     }
 </style>
 </head>
@@ -493,7 +465,6 @@
         <div class="hero-content">
             <h1>Best Wholesale Prices in Jalandhar for <br><span>Water & Disposables</span></h1>
             <p>Premium Quality Cups, Bottles, Plates, Foils & Tissues delivered to your doorstep.</p>
-            
             <a href="#order" class="hero-cta-whatsapp">Order On WhatsApp</a>
         </div>
 
@@ -507,10 +478,6 @@
                     <span class="icon-moon">🌙</span>
                 </div>
             </label>
-        </div>
-
-        <div class="scroll-mouse" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">
-            <div class="wheel"></div>
         </div>
     </section>
 </div>
