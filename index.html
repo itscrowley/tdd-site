@@ -64,7 +64,7 @@
         width: 90%; max-width: 1200px; z-index: 1000;
         display: flex; justify-content: space-between; align-items: center;
         padding: 12px 24px; 
-        border-radius: 50px; /* Desktop rounded */
+        border-radius: 50px; 
         background: var(--glass-bg-header);
         backdrop-filter: saturate(180%) blur(20px);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -85,8 +85,9 @@
     .nav-actions { display: flex; gap: 15px; align-items: center; }
     .btn-nav { padding: 8px 18px; border-radius: 30px; font-size: 13px; font-weight: 600; }
     
-    /* Call & Order Buttons (Desktop Defaults) */
+    /* Call Button */
     .btn-call { color: var(--text-main); border: 1px solid var(--text-muted); background: transparent; opacity: 0.8; }
+    
     .btn-order {
         background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white; border: none; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
@@ -238,29 +239,46 @@
         100% { box-shadow: 0 0 5px #fff, 0 0 15px var(--primary); }
     }
 
-    /* --- ORDER FORM --- */
+    /* --- ORDER FORM (Improved Unique Glass Style) --- */
     .form-wrapper {
-        background: var(--form-bg); padding: 40px; border-radius: 30px;
-        box-shadow: 0 20px 60px var(--shadow-color); max-width: 700px; margin: 0 auto;
-        border: 1px solid rgba(128,128,128,0.1);
+        background: var(--glass-bg-strong); /* Glass effect instead of solid */
+        padding: 40px; border-radius: 30px;
+        box-shadow: 0 20px 60px var(--shadow-color); max-width: 800px; margin: 0 auto;
+        border: var(--glass-border-strong);
+        backdrop-filter: blur(var(--glass-blur-amount));
+        -webkit-backdrop-filter: blur(var(--glass-blur-amount));
     }
-    label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-main); }
+    label { display: block; margin-bottom: 10px; font-weight: 700; color: var(--text-main); font-size: 15px;}
+    
+    /* Styled Select & Inputs */
     input, select, textarea {
-        width: 100%; padding: 14px 18px; border-radius: 12px;
-        border: 1px solid rgba(128,128,128,0.3); background: var(--input-bg); color: var(--text-main);
-        font-family: inherit; margin-bottom: 20px; transition: 0.2s;
+        width: 100%; padding: 16px 20px; border-radius: 16px;
+        border: 1px solid rgba(128,128,128,0.3); 
+        background: rgba(255,255,255,0.8); /* Semi-transparent input bg */
+        color: #1f2937; /* Force dark text in inputs for readability */
+        font-family: inherit; margin-bottom: 24px; transition: 0.3s;
+        font-size: 15px; appearance: none; /* Remove default arrow */
+    }
+    /* Custom Arrow for Select */
+    select {
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f97316%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+        background-repeat: no-repeat;
+        background-position: right 20px center;
+        background-size: 12px;
     }
     input:focus, select:focus, textarea:focus {
-        outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+        outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15);
+        background: #fff;
     }
     .btn-submit {
-        width: 100%; background: var(--secondary); color: white; padding: 16px;
-        border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer;
-        transition: 0.3s;
+        width: 100%; background: linear-gradient(135deg, var(--secondary), #15803d); 
+        color: white; padding: 18px;
+        border: none; border-radius: 50px; font-size: 18px; font-weight: 800; cursor: pointer;
+        transition: 0.3s; box-shadow: 0 10px 25px rgba(22, 163, 74, 0.3);
     }
-    .btn-submit:hover { background: #15803d; transform: translateY(-2px); }
+    .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(22, 163, 74, 0.4); }
 
-    /* --- RESPONSIVE LIGHTBOX --- */
+    /* --- MISC --- */
     #lightbox {
         position: fixed; inset: 0; z-index: 2000;
         background: rgba(0,0,0,0.92);
@@ -307,7 +325,7 @@
         display: flex; align-items: center; justify-content: center;
     }
 
-    /* Floating "Top" Button (Water drop removed) */
+    /* Floating "Top" Button */
     .float-btn {
         position: fixed; z-index: 999; border: none; cursor: pointer;
         display: flex; align-items: center; justify-content: center;
@@ -569,8 +587,8 @@
         <form onsubmit="return sendOrder(event)">
             <div class="form-group">
                 <label>Select Product</label>
-                <select id="category" required>
-                    <option value="">Choose...</option>
+                <select id="category" required onchange="updateQtyOptions()">
+                    <option value="">-- Choose Product --</option>
                     <option>Packaged Water Cups (Box)</option>
                     <option>Water Bottles - 250ml</option>
                     <option>Water Bottles - 1 Ltr</option>
@@ -588,15 +606,19 @@
                     <option>Other / Mixed Order</option>
                 </select>
             </div>
+            
             <div class="form-group">
-                <label>Quantity</label>
-                <input id="qty" placeholder="e.g. 5 Boxes, 10 Packets..." required>
+                <label id="qtyLabel">Quantity</label>
+                <select id="qtySelect" required>
+                    <option value="">Select Product First</option>
+                </select>
             </div>
+
             <div class="form-group">
                 <label>Additional Notes</label>
-                <textarea id="notes" rows="3" placeholder="Any specific brand preference, size, or delivery date?"></textarea>
+                <textarea id="notes" rows="3" placeholder="Specific brand preference, delivery date, etc."></textarea>
             </div>
-            <button class="btn-submit" type="submit">Send Order via WhatsApp</button>
+            <button class="btn-submit" type="submit">Send Order via WhatsApp 🚀</button>
         </form>
     </div>
 </section>
@@ -643,7 +665,8 @@ function openGallery(key){
   lbImg.src = currentGallery[0];
   lb.style.display = "flex";
   setTimeout(() => lb.classList.add("active"), 10);
-  /* Removed auto-select for dropdown to avoid confusion with new split categories */
+  
+  // Note: Auto-select removed to avoid confusion with new detailed dropdowns
 }
 
 function nextImg(){
@@ -665,12 +688,55 @@ function closeLightbox(){
 
 lb.addEventListener("click", (e) => { if(e.target === lb || e.target.classList.contains('lb-content')) closeLightbox(); });
 
+// --- DYNAMIC QUANTITY LOGIC ---
+function updateQtyOptions() {
+    const product = document.getElementById("category").value;
+    const qtySelect = document.getElementById("qtySelect");
+    const qtyLabel = document.getElementById("qtyLabel");
+    
+    qtySelect.innerHTML = ""; // Clear existing
+    
+    let unit = "Packets/Units";
+    let max = 100;
+
+    // Logic for Water items (Box)
+    if(product.includes("Water") || product.includes("Box")){
+        unit = "Box";
+        if(product.includes("Water")){
+             unit = "Boxes"; // Plural for list
+        }
+        qtyLabel.innerText = "Quantity (Boxes)";
+    } else {
+        qtyLabel.innerText = "Quantity (Packets/Pieces)";
+    }
+
+    // Default select option
+    let defaultOpt = document.createElement("option");
+    defaultOpt.text = "-- Select Quantity --";
+    defaultOpt.value = "";
+    qtySelect.add(defaultOpt);
+
+    // Generate 1 to 100 options
+    for(let i = 1; i <= max; i++) {
+        let option = document.createElement("option");
+        let labelUnit = i === 1 ? unit.replace("es", "") : unit; // singular/plural logic roughly
+        if(unit === "Boxes" && i===1) labelUnit = "Box";
+        
+        option.text = `${i} ${labelUnit}`;
+        option.value = `${i} ${labelUnit}`;
+        qtySelect.add(option);
+    }
+}
+
 function sendOrder(e){
   e.preventDefault();
   const cat = document.getElementById("category").value;
-  const qty = document.getElementById("qty").value;
+  const qty = document.getElementById("qtySelect").value;
   const notes = document.getElementById("notes").value;
+  
   if(!cat) { alert("Please select a product"); return false; }
+  if(!qty) { alert("Please select quantity"); return false; }
+
   const text = `*New Order from Website* %0A%0A📦 *Product:* ${cat} %0A🔢 *Quantity:* ${qty} %0A📝 *Notes:* ${notes || "None"}`;
   window.open("https://wa.me/919814812623?text=" + text, "_blank");
 }
