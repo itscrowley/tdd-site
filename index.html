@@ -14,26 +14,11 @@
 </head>
 <body>
 
-<a href="tel:+919814812623" class="float-btn-left">
-    <span class="icon">📞</span>
-    <span class="txt">Call Now</span>
-</a>
-
 <header id="mainHeader">
     <div class="brand">
         <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000062278.jpg?w=1024" alt="The Disposable Depot" class="logo-img">
     </div>
 </header>
-
-<div class="float-btn-right">
-    <label class="theme-switch" for="checkbox">
-        <input type="checkbox" id="checkbox" onchange="toggleTheme(this.checked)">
-        <div class="slider round">
-            <span class="icon-sun">☀&#xFE0E;</span>
-            <span class="icon-moon">🌙</span>
-        </div>
-    </label>
-</div>
 
 <div class="parallax-wrapper">
     <section class="hero parallax-bg">
@@ -42,7 +27,44 @@
             <p>Premium Quality Paper Cups, Glasses, Plates, Foils & Tissues Avaialable.</p>
             <a href="#order" class="hero-cta-whatsapp">Order On WhatsApp</a>
         </div>
+
+        <div class="hero-actions-row">
+            <a href="tel:+919814812623" class="btn-hero-call">Call Now 📞</a>
+            
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" onchange="toggleTheme(this.checked)">
+                <div class="slider round">
+                    <span class="icon-sun">☀&#xFE0E;</span>
+                    <span class="icon-moon">🌙</span>
+                </div>
+            </label>
+        </div>
     </section>
+</div>
+
+<div class="features-strip">
+    <div class="features-grid">
+        <div class="feature-box">
+            <span class="feat-icon">🚀</span>
+            <div class="feat-title">Fast Delivery</div>
+            <p class="feat-desc">Same day delivery available for bulk orders in Jalandhar.</p>
+        </div>
+        <div class="feature-box">
+            <span class="feat-icon">💰</span>
+            <div class="feat-title">Wholesale Rates</div>
+            <p class="feat-desc">Direct factory pricing for caterers, offices & events.</p>
+        </div>
+        <div class="feature-box">
+            <span class="feat-icon">✨</span>
+            <div class="feat-title">Premium Quality</div>
+            <p class="feat-desc">Hygiene-first packaging and durable disposables.</p>
+        </div>
+        <div class="feature-box">
+            <span class="feat-icon">📞</span>
+            <div class="feat-title">24/7 Support</div>
+            <p class="feat-desc">Easy ordering via WhatsApp or Call anytime.</p>
+        </div>
+    </div>
 </div>
 
 <section class="section" id="catalogue">
@@ -173,31 +195,6 @@
     </div>
 </section>
 
-<div class="features-strip">
-    <div class="features-grid">
-        <div class="feature-box">
-            <span class="feat-icon">🚀</span>
-            <div class="feat-title">Fast Delivery</div>
-            <p class="feat-desc">Same day delivery available for bulk orders in Jalandhar.</p>
-        </div>
-        <div class="feature-box">
-            <span class="feat-icon">💰</span>
-            <div class="feat-title">Wholesale Rates</div>
-            <p class="feat-desc">Direct factory pricing for caterers, offices & events.</p>
-        </div>
-        <div class="feature-box">
-            <span class="feat-icon">✨</span>
-            <div class="feat-title">Premium Quality</div>
-            <p class="feat-desc">Hygiene-first packaging and durable disposables.</p>
-        </div>
-        <div class="feature-box">
-            <span class="feat-icon">📞</span>
-            <div class="feat-title">24/7 Support</div>
-            <p class="feat-desc">Easy ordering via WhatsApp or Call anytime.</p>
-        </div>
-    </div>
-</div>
-
 <section class="mid-banner parallax-bg">
     <div class="mid-content">
         <h2>Bulk Orders? We've got you covered.</h2>
@@ -290,6 +287,8 @@ function openGallery(key){
   lbImg.src = currentGallery[0];
   lb.style.display = "flex";
   setTimeout(() => lb.classList.add("active"), 10);
+  
+  // Note: Auto-select removed to avoid confusion with new detailed dropdowns
 }
 
 function nextImg(){
@@ -356,7 +355,7 @@ function sendOrder(e){
   const cat = document.getElementById("category").value;
   const qty = document.getElementById("qtySelect").value;
   const notes = document.getElementById("notes").value;
-   
+  
   if(!cat) { alert("Please select a product"); return false; }
   if(!qty) { alert("Please select quantity"); return false; }
 
