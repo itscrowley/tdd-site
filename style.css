@@ -268,7 +268,7 @@ body.dark-mode .icon-sun, body.dark-mode .icon-moon { color: #fff; }
 /* --- MID BANNER --- */
 .mid-banner {
     padding: 120px 20px;
-    background-image: url("https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=1920&q=80");
+    background-image: url("https://images.unsplash.com/photo-1648622981113-1e0f7e2c1b4e?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     margin: 60px 0; text-align: center; color: white; position: relative;
 }
 .mid-banner::before {
@@ -391,7 +391,7 @@ input:focus, select:focus, textarea:focus {
 @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
 
 /* ================= MOBILE OPTIMIZATIONS ================= */
-@media (max-width: 768px) {
+@media (max-width: 500px) {
     /* Header Fixes */
     header {
         width: 96%;
