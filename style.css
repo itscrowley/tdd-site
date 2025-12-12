@@ -402,14 +402,14 @@ input:focus, select:focus, textarea:focus {
     
     /* Mobile Logo */
     .logo-img {
-        max-height: 24px; 
+        max-height: 18px; 
         border-radius: 50px;
     }
 
     /* Hero Adjustments */
     .hero { padding-top: 140px; padding-bottom: 60px; }
     .hero-content h1 { font-size: 32px; }
-    .hero-content { padding: 30px 20px; width: 95%; }
+    .hero-content { padding: 30px 20px; width: 80%; }
     
     /* Hero Actions Stack */
     .hero-actions-row {
