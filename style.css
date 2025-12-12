@@ -391,7 +391,7 @@ input:focus, select:focus, textarea:focus {
 @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
 
 /* ================= MOBILE OPTIMIZATIONS ================= */
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     /* Header Fixes */
     header {
         width: 96%;
@@ -402,8 +402,8 @@ input:focus, select:focus, textarea:focus {
     
     /* Mobile Logo */
     .logo-img {
-        max-height: 24px; 
-        border-radius: 32px;
+        max-height: 48px; 
+        border-radius: 50px;
     }
 
     /* Hero Adjustments */
