@@ -39,7 +39,24 @@
                 </div>
             </label>
         </div>
-    </section>
+
+        <div class="marquee-strip">
+            <div class="marquee-track">
+                <span>Special Offer for Limited Time 💥 &nbsp;•&nbsp; </span>
+                <span>Special Offer for Limited Time 💥 &nbsp;•&nbsp; </span>
+                <span>Special Offer for Limited Time 💥 &nbsp;•&nbsp; </span>
+                <span>Special Offer for Limited Time 💥 &nbsp;•&nbsp; </span>
+                <span>Special Offer for Limited Time 💥 &nbsp;•&nbsp; </span>
+                <span>Special Offer for Limited Time 💥 &nbsp;•&nbsp; </span>
+                <span>Special Offer for Limited Time 💥 &nbsp;•&nbsp; </span>
+                <span>Special Offer for Limited Time 💥 &nbsp;•&nbsp; </span>
+                <span>Special Offer for Limited Time 💥 &nbsp;•&nbsp; </span>
+                <span>Special Offer for Limited Time 💥 &nbsp;•&nbsp; </span>
+                <span>Special Offer for Limited Time 💥 &nbsp;•&nbsp; </span>
+                <span>Special Offer for Limited Time 💥 &nbsp;•&nbsp; </span>
+            </div>
+        </div>
+        </section>
 </div>
 
 <section class="section" id="catalogue">
@@ -174,9 +191,9 @@
     <div class="glass-overlay-strip">
         <div class="features-grid">
             <div class="feature-box">
-                <span class="feat-icon">🚀</span>
-                <div class="feat-title">Fast Delivery</div>
-                <p class="feat-desc">Same day delivery available for bulk orders in Jalandhar.</p>
+                <span class="feat-icon">📞</span>
+                <div class="feat-title">24/7 Support</div>
+                <p class="feat-desc">Easy ordering via WhatsApp or Call anytime.</p>
             </div>
             <div class="feature-box">
                 <span class="feat-icon">💰</span>
@@ -188,10 +205,7 @@
                 <div class="feat-title">Premium Quality</div>
                 <p class="feat-desc">Hygiene-first packaging and durable disposables.</p>
             </div>
-            <div class="feature-box">
-                <span class="feat-icon">📞</span>
-                <div class="feat-title">24/7 Support</div>
-                <p class="feat-desc">Easy ordering via WhatsApp or Call anytime.</p>
+
             </div>
         </div>
     </div>
@@ -321,27 +335,24 @@ function updateQtyOptions() {
     let unit = "Packets/Units";
     let max = 100;
 
-    // Logic for Water items (Box)
     if(product.includes("Water") || product.includes("Box")){
         unit = "Box";
         if(product.includes("Water")){
-             unit = "Boxes"; // Plural for list
+             unit = "Boxes"; 
         }
         qtyLabel.innerText = "Quantity (Boxes)";
     } else {
         qtyLabel.innerText = "Quantity (Packets/Pieces)";
     }
 
-    // Default select option
     let defaultOpt = document.createElement("option");
     defaultOpt.text = "-- Select Quantity --";
     defaultOpt.value = "";
     qtySelect.add(defaultOpt);
 
-    // Generate 1 to 100 options
     for(let i = 1; i <= max; i++) {
         let option = document.createElement("option");
-        let labelUnit = i === 1 ? unit.replace("es", "") : unit; // singular/plural logic roughly
+        let labelUnit = i === 1 ? unit.replace("es", "") : unit; 
         if(unit === "Boxes" && i===1) labelUnit = "Box";
         
         option.text = `${i} ${labelUnit}`;
