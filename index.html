@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;500;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="style.css">
 
@@ -48,39 +49,9 @@
                 <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
                 <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
                 <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-              <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-                <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-                <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-              <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-                <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-                <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-              <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-                <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-                <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-              <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-                <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-                <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-              <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-                <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-                <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-                <span>🔥 Special Offer: Bulk Discounts Available! &nbsp;•&nbsp; </span>
-                <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
-              <span>⚡ Limited Time Offer &nbsp;•&nbsp; </span>
             </div>
         </div>
-        </section>
+    </section>
 </div>
 
 <section class="section" id="catalogue">
@@ -256,43 +227,93 @@
 
 <section class="section" id="order">
     <h2 class="section-title">Quick WhatsApp Order</h2>
-    <div class="form-wrapper">
-        <form onsubmit="return sendOrder(event)">
-            <div class="form-group">
-                <label>Select Product</label>
-                <select id="category" required onchange="updateQtyOptions()">
-                    <option value="">-- Choose Product --</option>
-                    <option>Packaged Water Cups (Box)</option>
-                    <option>Water Bottles - 250ml</option>
-                    <option>Water Bottles - 1 Ltr</option>
-                    <option>Water Bottles - 5 Ltr</option>
-                    <option>Disposable Coffee Glass</option>
-                    <option>Ping Pong Glass</option>
-                    <option>Disposable Plates</option>
-                    <option>Disposable Round Plate</option>
-                    <option>Glass with Lid</option>
-                    <option>Plastic Bowls</option>
-                    <option>Aluminium & Cling Foils</option>
-                    <option>Paper Napkins</option>
-                    <option>Plastic Spoons</option>
-                    <option>Soft Drinks</option>
-                    <option>Other / Mixed Order</option>
-                </select>
+    
+    <div class="wa-card">
+        <div class="wa-header">
+            <div class="wa-profile-pic">
+                <img src="https://thedisposabledepot.wordpress.com/wp-content/uploads/2025/02/1000062278.jpg?w=1024" alt="DP">
             </div>
+            <div class="wa-info">
+                <h3 class="wa-name">The Disposable Depot <span class="wa-verified">✔</span></h3>
+                <p class="wa-status">online</p>
+            </div>
+            <div class="wa-actions">
+                <span>📹</span><span>📞</span><span>⋮</span>
+            </div>
+        </div>
+
+        <div class="wa-body">
             
-            <div class="form-group">
-                <label id="qtyLabel">Quantity</label>
-                <select id="qtySelect" required>
-                    <option value="">Select Product First</option>
-                </select>
+            <div class="msg-row incoming">
+                <div class="msg-bubble">
+                    <p>Hello! 👋 Welcome to our online portal. Please select your order below.</p>
+                    <span class="msg-time">10:00 AM</span>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label>Additional Notes</label>
-                <textarea id="notes" rows="3" placeholder="Specific brand preference, delivery date, etc."></textarea>
-            </div>
-            <button class="btn-submit" type="submit">Send Order via WhatsApp 🚀</button>
-        </form>
+            <form onsubmit="return sendOrder(event)" class="wa-form">
+                
+                <div class="msg-row outgoing">
+                    <div class="msg-bubble green-bubble">
+                        <label class="bubble-label">Product</label>
+                        <select id="category" required onchange="updateQtyOptions()">
+                            <option value="">👇 Select Item...</option>
+                            <option>Packaged Water Cups (Box)</option>
+                            <option>Water Bottles - 250ml</option>
+                            <option>Water Bottles - 1 Ltr</option>
+                            <option>Water Bottles - 5 Ltr</option>
+                            <option>Disposable Coffee Glass</option>
+                            <option>Ping Pong Glass</option>
+                            <option>Disposable Plates</option>
+                            <option>Disposable Round Plate</option>
+                            <option>Glass with Lid</option>
+                            <option>Plastic Bowls</option>
+                            <option>Aluminium & Cling Foils</option>
+                            <option>Paper Napkins</option>
+                            <option>Plastic Spoons</option>
+                            <option>Soft Drinks</option>
+                            <option>Other / Mixed Order</option>
+                        </select>
+                        <div class="msg-meta">
+                            <span class="msg-time">Now</span>
+                            <span class="double-tick">✓✓</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="msg-row outgoing">
+                    <div class="msg-bubble green-bubble">
+                        <label class="bubble-label">Quantity</label>
+                        <select id="qtySelect" required>
+                            <option value="">👇 Select Qty...</option>
+                        </select>
+                        <div class="msg-meta">
+                            <span class="msg-time">Now</span>
+                            <span class="double-tick">✓✓</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="msg-row outgoing">
+                    <div class="msg-bubble green-bubble">
+                        <label class="bubble-label">Notes</label>
+                        <textarea id="notes" rows="1" placeholder="Type special instructions..."></textarea>
+                        <div class="msg-meta">
+                            <span class="msg-time">Now</span>
+                            <span class="double-tick">✓✓</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wa-footer-bar">
+                    <button type="submit" class="wa-send-btn">
+                        <span>Send Order on WhatsApp</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+                    </button>
+                </div>
+
+            </form>
+        </div>
     </div>
 </section>
 
@@ -363,7 +384,6 @@ lb.addEventListener("click", (e) => { if(e.target === lb || e.target.classList.c
 function updateQtyOptions() {
     const product = document.getElementById("category").value;
     const qtySelect = document.getElementById("qtySelect");
-    const qtyLabel = document.getElementById("qtyLabel");
     
     qtySelect.innerHTML = ""; 
     
@@ -373,9 +393,6 @@ function updateQtyOptions() {
     if(product.includes("Water") || product.includes("Box")){
         unit = "Box";
         if(product.includes("Water")){ unit = "Boxes"; }
-        qtyLabel.innerText = "Quantity (Boxes)";
-    } else {
-        qtyLabel.innerText = "Quantity (Packets/Pieces)";
     }
 
     let defaultOpt = document.createElement("option");
@@ -402,8 +419,25 @@ function sendOrder(e){
   if(!cat) { alert("Please select a product"); return false; }
   if(!qty) { alert("Please select quantity"); return false; }
 
-  const text = `*New Order from Website* %0A%0A📦 *Product:* ${cat} %0A🔢 *Quantity:* ${qty} %0A📝 *Notes:* ${notes || "None"}`;
-  window.open("https://wa.me/919814812623?text=" + text, "_blank");
+  // WhatsApp Invoice Style Message
+  const message = 
+`🧾 *WHOLESALE ORDER REQUEST*
+----------------------------------
+📅 Date: ${new Date().toLocaleDateString()}
+🏭 To: *The Disposable Depot*
+
+📦 *ITEM DETAILS*
+• Product: *${cat}*
+• Quantity: *${qty}*
+
+📝 *CUSTOMER NOTES*
+${notes ? `"${notes}"` : "None"}
+
+----------------------------------
+💡 Please confirm availability & price.`;
+
+  const encodedMsg = encodeURIComponent(message);
+  window.open("https://wa.me/919814812623?text=" + encodedMsg, "_blank");
 }
 
 window.addEventListener("scroll", () => {
