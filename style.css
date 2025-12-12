@@ -402,7 +402,7 @@ input:focus, select:focus, textarea:focus {
     
     /* Mobile Logo */
     .logo-img {
-        max-height: 48px; 
+        max-height: 24px; 
         border-radius: 50px;
     }
 
