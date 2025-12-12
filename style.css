@@ -395,7 +395,7 @@ input:focus, select:focus, textarea:focus {
     /* Header Fixes */
     header {
         width: 90%;
-        padding: 30px 20px;
+        padding: 15px 15px;
         top: 10px;
         border-radius: 100px; 
     }
