@@ -433,8 +433,8 @@ input:focus, select:focus, textarea:focus {
     
     /* Features Grid */
     .features-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .glass-overlay-strip { padding: 50px 100px; } /* Less padding on mobile */
-    .feature-box { padding: 16px; }
+    .glass-overlay-strip { padding: 40px 120px; } /* Less padding on mobile */
+    .feature-box { padding: 18px; }
     .feat-icon { font-size: 24px; }
     .feat-title { font-size: 14px; }
     .feat-desc { font-size: 11px; }
