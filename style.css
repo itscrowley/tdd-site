@@ -397,7 +397,7 @@ input:focus, select:focus, textarea:focus {
         width: 96%;
         padding: 8px 12px;
         top: 10px;
-        border-radius: 15px; 
+        border-radius: 100px; 
     }
     
     /* Mobile Logo */
