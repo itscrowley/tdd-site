@@ -268,7 +268,7 @@ body.dark-mode .icon-sun, body.dark-mode .icon-moon { color: #fff; }
 /* --- MID BANNER --- */
 .mid-banner {
     padding: 120px 20px;
-    background-image: url("https://images.unsplash.com/photo-1648622981113-1e0f7e2c1b4e?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-image: url("https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=1920&q=80");
     margin: 60px 0; text-align: center; color: white; position: relative;
 }
 .mid-banner::before {
@@ -391,7 +391,7 @@ input:focus, select:focus, textarea:focus {
 @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
 
 /* ================= MOBILE OPTIMIZATIONS ================= */
-@media (max-width: 400px) {
+@media (max-width: 768px) {
     /* Header Fixes */
     header {
         width: 96%;
@@ -402,14 +402,14 @@ input:focus, select:focus, textarea:focus {
     
     /* Mobile Logo */
     .logo-img {
-        max-height: 12px; 
-        border-radius: 40px;
+        max-height: 48px; 
+        border-radius: 50px;
     }
 
     /* Hero Adjustments */
     .hero { padding-top: 140px; padding-bottom: 60px; }
     .hero-content h1 { font-size: 32px; }
-    .hero-content { padding: 30px 20px; width: 80%; }
+    .hero-content { padding: 30px 20px; width: 95%; }
     
     /* Hero Actions Stack */
     .hero-actions-row {
