@@ -72,7 +72,7 @@ header.scrolled { top: 10px; }
 }
 .hero {
     min-height: auto; 
-    background-image: url("https://images.unsplash.com/photo-1645047059915-ae0b25f3bb60?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-image: url("https://plus.unsplash.com/premium_photo-1747850753779-6d764d91935e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     padding-top: 150px; 
     padding-bottom: 0px; 
